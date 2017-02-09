@@ -1,11 +1,9 @@
-"#
-"# @author : Kanon
-"# @
-"#
+"# Author      : Kanon
+"# Since       : 2017/02/09
+"# LadtUpdate  : 2017/02/10
 
 set encoding=utf-8
 scriptencoding utf-8
-
 
 "##################################
 "### ファイルタイプ設定　無効化 ###
@@ -13,6 +11,7 @@ scriptencoding utf-8
 
 filetype off
 filetype plugin indent off
+
 
 "################
 "### 表示設定 ###
@@ -24,14 +23,12 @@ set showmatch           "括弧入力時の対応する括弧を表示
 syntax on               "コードの色分け
 set ruler               "括弧の位置を表示
 
-set tabstop=4           "タブ幅 : 4
-set softtabstop=4       "インデント幅 : 4
-"set shiftwidth=4        "自動インデント幅:4
-set autoindent          "オートインデント
-set expandtab           "タブを半角スペースに変更する
+set expandtab           "タブをスペースに
+set autoindent          "インデントを自動で
+set tabstop=2           "タブ幅 : 4
+set shiftwidth=2        "自動インデント幅:4
 set clipboard+=unnamed  "クリップボードを共通に
 set nowrap              "画面端改行:無効
-
 
 "################
 "### 検索設定 ###
