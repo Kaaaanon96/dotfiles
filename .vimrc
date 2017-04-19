@@ -1,6 +1,6 @@
 "# Author      : Kanon
 "# Since       : 2017/02/09
-"# LadtUpdate  : 2017/02/18
+"# LadtUpdate  : 2017/04/19
 
 set encoding=utf-8
 scriptencoding utf-8
@@ -46,10 +46,7 @@ set scrolloff=5         "余裕を持ってスクロール
 "タブ/インデント設定
 "#########################
 
-set expandtab           "タブをスペースに
-set autoindent          "インデントを自動で
-set tabstop=4           "タブ幅 : 4
-
+source ~/dotfiles/.vimrc.indent
 
 "################
 "検索設定
@@ -76,9 +73,5 @@ set history=5000
 set backspace=indent,eol,start  "バックスペースの有効化
 
 
-"##################################
-"ファイルタイプ設定　有効化
-"##################################
 
-filetype plugin indent on
 
