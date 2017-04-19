@@ -1,11 +1,11 @@
 #!/bin/sh
 
 DOT_FILES=( 
-  .bash_profile
+  .bash_profile 
   .bashrc 
   .gnuplot 
-  .vimrc
-)
+  .vimrc 
+  )
 
 for file in ${DOT_FILES[@]}
 do
