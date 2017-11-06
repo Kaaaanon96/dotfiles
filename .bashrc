@@ -19,7 +19,7 @@ alias mv='mv -i'
 alias rm='rm -i'
 alias cp='cp -i'
 alias df='df -h'
-alias relogin='exec -l $SHELL
+alias relogin='exec -l $SHELL'
 alias brew="env PATH=${PATH//$(pyenv root)\/shims:/} brew"
 
 # -----------------------------------
