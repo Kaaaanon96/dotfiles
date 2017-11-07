@@ -17,10 +17,10 @@ filetype plugin indent off
 "ファイル設定
 "###############
 
-set nobackup
-set noswapfile
-set autoread
-set hidden
+set nobackup            "バックアップファイルを作らない
+set noswapfile          "スワップファイルを作らない
+set autoread            "編集中のファイルが変更されたら自動再読込
+set hidden              "バッファが編集中でもその他のファイルを開けるように
 
 "################
 "表示設定
@@ -30,13 +30,20 @@ set number              "行番号
 set cursorline          "行の強調表示
 set title               "編集中のファイル名を表示
 set showmatch           "括弧入力時の対応する括弧を表示
-syntax on               "コードの色分け
 set ruler               "括弧の位置を表示
 set showcmd             "コマンド表示
 set pumheight=10        "補完メニューの高さ
 set nowrap              "画面端改行:無効
-set clipboard+=unnamed  "クリップボードを共通に
-set scrolloff=5         "余裕を持ってスクロール
+set scrolloff=7         "余裕を持ってスクロール
+set visualbell          "ビープ音を可視化
+set virtualedit=onemore "行末の1文字先までカーソル
+
+"####################
+"カラースキーム
+"###################
+
+syntax on
+color dracula
 
 "#########################
 "タブ/インデント設定
@@ -67,6 +74,15 @@ set history=5000
 "############################
 
 set backspace=indent,eol,start  "バックスペースの有効化
+set clipboard+=unnamed  "クリップボードを共通に
+
+noremap <S-h>   ^   " Shift + h で文頭に移動
+noremap <S-j>   }   " Shift + j で下の段落に移動
+noremap <S-k>   {   " Shift + k で上の段落に移動
+noremap <S-l>   $   " Shift + l で文末に移動
+noremap Y   y$      " Y を行末までのヤンクに
+
+inoremap jj   <Esc> " jjでEscの代わり。
 
 "############################
 "ファイルタイプ有効化
