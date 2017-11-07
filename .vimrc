@@ -4,10 +4,7 @@
 
 set encoding=utf-8
 scriptencoding utf-8
-
 set fileencoding=utf-8  " 保存時の文字コード
-
-
 
 "##################################
 "ファイルタイプ設定　無効化
@@ -24,7 +21,6 @@ set nobackup
 set noswapfile
 set autoread
 set hidden
-
 
 "################
 "表示設定
@@ -72,6 +68,9 @@ set history=5000
 
 set backspace=indent,eol,start  "バックスペースの有効化
 
+"############################
+"ファイルタイプ有効化
+"############################
 
-
+filetype plugin indent on
 
