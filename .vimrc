@@ -1,6 +1,6 @@
 "# Author      : Kanon
 "# Since       : 2017/02/09
-"# LadtUpdate  : 2017/04/19
+"# LadtUpdate  : 2017/11/07
 
 set encoding=utf-8
 scriptencoding utf-8
@@ -76,13 +76,7 @@ set history=5000
 set backspace=indent,eol,start  "バックスペースの有効化
 set clipboard+=unnamed  "クリップボードを共通に
 
-noremap <S-h>   ^   " Shift + h で文頭に移動
-noremap <S-j>   }   " Shift + j で下の段落に移動
-noremap <S-k>   {   " Shift + k で上の段落に移動
-noremap <S-l>   $   " Shift + l で文末に移動
-noremap Y   y$      " Y を行末までのヤンクに
-
-inoremap jj   <Esc> " jjでEscの代わり。
+map Y y$      " Y を行末までのヤンクに
 
 "############################
 "ファイルタイプ有効化
