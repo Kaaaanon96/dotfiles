@@ -5,6 +5,7 @@ DOT_FILES=(
   .bashrc 
   .gnuplot 
   .vimrc 
+  .vim
   )
 
 for file in ${DOT_FILES[@]}
