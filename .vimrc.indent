@@ -16,7 +16,6 @@ if has("autocmd")
   "そのファイルタイプにあわせたインデントを利用する
   filetype indent on
   " これらのftではインデントを無効に
-  "autocmd FileType php filetype indent off
 
   autocmd FileType apache     setlocal sw=4 sts=4 ts=4 et
   autocmd FileType aspvbs     setlocal sw=4 sts=4 ts=4 et
