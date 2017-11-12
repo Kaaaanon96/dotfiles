@@ -1,6 +1,6 @@
 "# Author      : Kanon
 "# Since       : 2017/02/09
-"# LadtUpdate  : 2017/11/09
+"# LadtUpdate  : 2017/11/12
 
 set encoding=utf-8
 scriptencoding utf-8
@@ -39,6 +39,7 @@ set scrolloff=7         " 余裕を持ってスクロール
 set visualbell          " ビープ音を可視化
 set virtualedit=onemore " 行末の1文字先までカーソル
 set laststatus=2        " ステータスラインを常に表示
+set ambiwidth=double    " 全角記号を正確に表示
 
 "####################
 "カラースキーム
@@ -132,10 +133,30 @@ filetype plugin indent on
 "ぷらぎん関係の設定
 "################################
 
-" lightlineの設定
-let g:lightline = {
-  \ 'colorscheme': 'Dracula'
-  \ }
+" lightline の設定
+"let g:lightline = {
+"        \ 'colorscheme': 'Dracula',
+"        \ }
+
+" airline の設定
+let g:airline_theme = 'dracula'
+let g:airline#extensions#tabline#enabled  = 1
+let g:airline#extensions#branch#enavled   = 1
+
+" vim-indent-guides
+let g:indent_guides_guide_size  = 1
+let g:indent_guides_start_level = 2
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=#262626 ctermbg=gray
+autocmd Vimenter,Colorscheme * :hi IndentGuidesEven guibg=#3c3c3c ctermbg=darkgray
+
+" NERDTree
+let NERDTreeShowHidden = 1
+" ファイル指定されなければ起動と同時にNERDTreeを開く
+if !argc()
+  autocmd vimenter * NERDTree|normal gg3j
+endif
+map <C-n> :NERDTreeToggle<CR>
 
 
 
