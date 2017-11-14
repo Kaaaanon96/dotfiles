@@ -1,4 +1,3 @@
-tap "heroku/brew"
 tap "homebrew/bundle"
 tap "homebrew/core"
 tap "homebrew/python"
@@ -12,6 +11,7 @@ brew "fontconfig"
 brew "gcc"
 brew "lua"
 brew "gnuplot", args: ["with-aquaterm", "with-x11"]
+brew "go"
 brew "graphviz"
 brew "ilmbase"
 brew "imagemagick"
