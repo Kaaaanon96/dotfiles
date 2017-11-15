@@ -1,6 +1,6 @@
 "# Author      : Kanon
 "# Since       : 2017/02/09
-"# LadtUpdate  : 2017/11/12
+"# LadtUpdate  : 2017/11/14
 
 set encoding=utf-8
 scriptencoding utf-8
@@ -133,11 +133,6 @@ filetype plugin indent on
 "ぷらぎん関係の設定
 "################################
 
-" lightline の設定
-"let g:lightline = {
-"        \ 'colorscheme': 'Dracula',
-"        \ }
-
 " airline の設定
 let g:airline_theme = 'dracula'
 let g:airline#extensions#tabline#enabled  = 1
@@ -152,13 +147,40 @@ autocmd Vimenter,Colorscheme * :hi IndentGuidesEven guibg=#3c3c3c ctermbg=darkgr
 
 " NERDTree
 let NERDTreeShowHidden = 1
-" ファイル指定されなければ起動と同時にNERDTreeを開く
-if !argc()
-  autocmd vimenter * NERDTree|normal gg3j
-endif
-map <C-n> :NERDTreeToggle<CR>
 
+" deoplate.vim
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#enable_ignore_case = 0
 
+" vim-go
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_vonstraints = 1
+
+let g:go_fmt_fail_silently = 1
+let g:go_fmt_autosave = 0
+let g:go_fmt_command = "goimports"
+
+let g:go_gocode_unimported_packages = 1
+
+" deoplate-go
+let g:deoplate#sources#go#gocode_binary = $GOPATH . 'bin/gocode'
+
+" vim-precious
+nnoremap <silent> <Space>s :PreciousSwitch<CR>
+nnoremap <silent> <Space>p :PreciousReset<CR> 
+
+let g:precious_enable_switch_CursorMoved = {"*" : 0}
+let g:precious_enable_switch_CursorMoved_i = {"*" : 0}
+
+augroup test
+  autocmd!
+  autocmd InsertEnter * :PreciousSwitch
+augroup END
 
 
 
