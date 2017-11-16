@@ -31,6 +31,10 @@ depends = ['context_filetype.vim']
 repo = 'Shougo/context_filetype.vim'
 
 [[plugins]]
+repo = 'plasticboy/vim-markdown' 
+on_ft = 'markdown'
+
+[[plugins]]
 repo = 'elzr/vim-json'
 
 [[plugins]] # toml syntax
