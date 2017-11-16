@@ -5,5 +5,10 @@
 	- .bashrc
 	- .gnuplot
 	- .vimrc
+  - .vimrc.indent
+  - .vim
+  - Brewfile
+ 
 
 setup.shでシンボリックリンクはるかんじで
+
