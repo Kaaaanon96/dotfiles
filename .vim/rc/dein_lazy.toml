@@ -31,7 +31,7 @@ depends = ['context_filetype.vim']
 repo = 'Shougo/context_filetype.vim'
 
 [[plugins]]
-repo = 'plasticboy/vim-markdown' 
+repo = 'gabrielelana/vim-markdown'
 on_ft = 'markdown'
 
 [[plugins]]

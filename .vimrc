@@ -186,7 +186,7 @@ augroup test
 augroup END
 
 " markdown
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_math = 1
-
+autocmd BufRead,BufNewFile *.md  :set filetype=markdown
+let g:markdown_enable_insert_mode_leader_mappings = 1 
+let g:markdown_enable_spell_checking = 0
 
