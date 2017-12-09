@@ -27,3 +27,5 @@ brew "tmux"
 brew "tomcat"
 brew "tree"
 brew "vim", args: ["with-python3", "with-lua"]
+brew "pandoc"
+brew "gibo"
