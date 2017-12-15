@@ -1,3 +1,4 @@
+# deoplete
 [[plugins]]
 repo = 'fatih/vim-go'
 on_ft = 'go'
@@ -23,6 +24,19 @@ on_ft = 'ruby'
 repo = 'Shougo/deoplete.nvim'
 on_i = 1
 
+# 補完
+#[[plugins]]
+#repo = 'tpope/vim-endwise'
+
+[[plugins]]
+repo = 'cohama/lexima.vim'
+on_i = 1
+
+[[plugins]]
+repo = 'mattn/emmet-vim'
+on_ft = ['html', 'css']
+
+# syntax
 [[plugins]]
 repo = 'osyo-manga/vim-precious'
 depends = ['context_filetype.vim']
@@ -35,9 +49,15 @@ repo = 'gabrielelana/vim-markdown'
 on_ft = 'markdown'
 
 [[plugins]]
+repo = 'hail2u/vim-css3-syntax'
+on_ft = ['html', 'css']
+
+[[plugins]]
 repo = 'elzr/vim-json'
+on_ft = 'json'
 
 [[plugins]] # toml syntax
 repo = 'cespare/vim-toml'
 on_ft = 'toml'
+
 

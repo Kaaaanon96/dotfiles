@@ -61,6 +61,7 @@ source ~/dotfiles/.vimrc.indent " 外部ファイル読み込み
 set ignorecase          " 大文字/小文字の区別をなく検索
 set smartcase           " 検索文字列に大文字が含まれている場合は区別
 set wrapscan            " 検索時に最後まで行ったら最初に戻る
+set incsearch           " インクリメンタルな検索
 set hlsearch            " 検索結果をハイライト
 
 "############################
@@ -77,10 +78,47 @@ set history=5000
 "############################
 
 set backspace=indent,eol,start  " バックスペースの有効化
-set clipboard+=unnamed          " クリップボードを共通に
+"set clipboard+=unnamed          " クリップボードを共通に
 set timeout timeoutlen=1000 ttimeoutlen=75
 
+" Yで行末までヤンク
 noremap Y y$
+
+" ^と$がすぐに押せないからスペースとの組み合わせを使用
+noremap <Space>h ^
+noremap <Space>l $
+
+" クリップボードからペースト
+nnoremap <Space>p "*p
+vnoremap <Space>p "*p
+nnoremap <Space>P "*P
+vnoremap <Space>P "*P
+" クリップボードにヤンク
+nnoremap <Space>y "*y
+nnoremap <Space>Y "*y$
+vnoremap <Space>y "*y
+" 削除してクリップボードに
+nnoremap <Space>d "*d
+nnoremap <Space>D "*d$
+vnoremap <Space>d "*d
+
+" コマンドライン
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <M-b> <S-Left>
+cnoremap <M-f> <S-Right>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-n> <Down>
+cnoremap <C-p> <Up>
+
+" 挿入モード
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
+inoremap <M-b> <S-Left>
+inoremap <M-f> <S-Right>
+inoremap <C-a> <C-o>^
+inoremap <C-e> <C-o>$
 
 "############################
 "dein設定
@@ -139,11 +177,13 @@ let g:airline#extensions#tabline#enabled  = 1
 let g:airline#extensions#branch#enavled   = 1
 
 " vim-indent-guides
-let g:indent_guides_guide_size  = 1
-let g:indent_guides_start_level = 2
+"let g:indent_guides_guide_size  = 1
+let g:indent_guides_start_level = 3
 let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=#262626 ctermbg=gray
-autocmd Vimenter,Colorscheme * :hi IndentGuidesEven guibg=#3c3c3c ctermbg=darkgray
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#1e1f28 ctermbg=235
+autocmd Vimenter,Colorscheme * :hi IndentGuidesOdd guibg=#232530 ctermbg=237
+let g:indent_guides_color_change_percent = 1
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 
 " NERDTree
 let NERDTreeShowHidden = 1
@@ -174,8 +214,8 @@ let g:go_gocode_unimported_packages = 1
 let g:deoplate#sources#go#gocode_binary = $GOPATH . 'bin/gocode'
 
 " vim-precious
-nnoremap <silent> <Space>s :PreciousSwitch<CR>
-nnoremap <silent> <Space>p :PreciousReset<CR> 
+nnoremap <silent> <Space>ps :PreciousSwitch<CR>
+nnoremap <silent> <Space>pr :PreciousReset<CR>
 
 let g:precious_enable_switch_CursorMoved = {"*" : 0}
 let g:precious_enable_switch_CursorMoved_i = {"*" : 0}
@@ -189,4 +229,44 @@ augroup END
 autocmd BufRead,BufNewFile *.md  :set filetype=markdown
 let g:markdown_enable_insert_mode_leader_mappings = 1 
 let g:markdown_enable_spell_checking = 0
+
+" vim-asterisk
+map *  <Plug>(asterisk-z*)<Plug>(is-nohl-1)
+map g* <Plug>(asterisk-gz*)<Plug>(is-nohl-1)
+map #  <Plug>(asterisk-z#)<Plug>(is-nohl-1)
+map g# <Plug>(asterisk-gz#)<Plug>(is-nohl-1)
+
+" vim-over
+nnoremap <silent> <Space>o :OverCommandLine<CR>%s//g<Left><Left>
+vnoremap <silent> <Space>o :OverCommandLine<CR>s//g<Left><Left>
+nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
+
+" vim-quickrun
+" 成功したらbuffer,失敗したらquickfix
+let g:quickrun_config = {
+      \   "_" : {
+      \         'runner'    : 'job',
+      \         'outputter' : 'error',
+      \         'outputter/error/success' : 'buffer',
+      \         'outputter/error/error'   : 'quickfix',
+      \         'outputter/buffer/split'  : 'botright 10sp',
+      \         'outputter/buffer/into': 1,
+      \         'outputter/buffer/close_on_empty' : 1,
+      \   },
+      \}
+
+nnoremap <Leader>r :QuickRun<Cr>
+vnoremap <Leader>r :QuickRun -mode v<CR>
+
+" precious+quickrun コンテキストの範囲でquickrun
+nmap <Space>q <Plug>(precious-quickrun-op)
+omap ic <Plug>(textobj-precious-i)
+vmap ic <Plug>(textobj-precious-i)
+
+
+
+
+
+
+
 
