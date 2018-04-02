@@ -115,8 +115,8 @@ cnoremap <C-p> <Up>
 " 挿入モード
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
-inoremap <M-b> <S-Left>
-inoremap <M-f> <S-Right>
+" inoremap <M-b> <S-Left>
+" inoremap <M-f> <S-Right>
 inoremap <C-a> <C-o>^
 inoremap <C-e> <C-o>$
 
@@ -162,6 +162,13 @@ if dein#check_install()
 endif
 
 "#################################
+"autocmd リセット
+"#################################
+augroup MyAutoCmd
+  autocmd! *
+augroup END
+
+
 "インデント・プラグイン on
 "#################################
 
@@ -180,16 +187,16 @@ let g:airline#extensions#branch#enavled   = 1
 "let g:indent_guides_guide_size  = 1
 let g:indent_guides_start_level = 3
 let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#1e1f28 ctermbg=235
-autocmd Vimenter,Colorscheme * :hi IndentGuidesOdd guibg=#232530 ctermbg=237
+autocmd MyAutoCmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#1e1f28 ctermbg=235
+autocmd MyAutoCmd Vimenter,Colorscheme * :hi IndentGuidesOdd guibg=#232530 ctermbg=237
 let g:indent_guides_color_change_percent = 1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 
 " NERDTree
 let NERDTreeShowHidden = 1
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd MyAutoCmd StdinReadPre * let s:std_in=1
+autocmd MyAutoCmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " deoplate.vim
 let g:deoplete#enable_at_startup = 1
@@ -226,7 +233,7 @@ augroup test
 augroup END
 
 " markdown
-autocmd BufRead,BufNewFile *.md  :set filetype=markdown
+autocmd MyAutoCmd BufRead,BufNewFile *.md  :set filetype=markdown
 let g:markdown_enable_insert_mode_leader_mappings = 1 
 let g:markdown_enable_spell_checking = 0
 
@@ -262,11 +269,5 @@ vnoremap <Leader>r :QuickRun -mode v<CR>
 nmap <Space>q <Plug>(precious-quickrun-op)
 omap ic <Plug>(textobj-precious-i)
 vmap ic <Plug>(textobj-precious-i)
-
-
-
-
-
-
 
 
