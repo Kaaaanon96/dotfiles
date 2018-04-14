@@ -23,9 +23,6 @@ setup.shでシンボリックリンクはるかんじで
 - deopleteの設定
   - `pip3 install neovim`
     - PATHが通ってなくてエラーを吐く時がある
-  - previewが別windowで開くようになった時
-    - `set completeopt-=preview`を設定に足す
-      - このvimrcには追加済み
 
 - vim-go
   - `:GoInstallBinaries`
