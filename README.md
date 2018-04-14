@@ -38,9 +38,11 @@ setup.shでシンボリックリンクはるかんじで
     - `yard gems `
     - `yard config --gem-install-yri`
 
-- airline
-  - `.vim/autoload/airline/themes/dracula.vim`
-    - 上記のファイルをairlineのthemeディレクトリの中に
+- vimproc
+  - buildした結果が標準と違う場所に入る。
+  - `~/.cache/dein/repos/github.com/Shougo/vimproc.vim/lib/vimproc_mac.so`
+  - 今のdotfiles設定でmacに入れると上記の場所。
+  - 他の環境に入れた場合は場所を確認してvimrcを変更
 
 - プラグイン設定を変更した時
   - `call map(dein#check_clean(), "delete(v:val, 'rf')")`
