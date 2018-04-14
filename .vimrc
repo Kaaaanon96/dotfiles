@@ -204,11 +204,6 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#enable_ignore_case = 0
 
-" vim-go
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_vonstraints = 1
 
@@ -220,18 +215,6 @@ let g:go_gocode_unimported_packages = 1
 
 " deoplete-go
 let g:deoplete#sources#go#gocode_binary = $GOPATH . 'bin/gocode'
-
-" vim-precious
-nnoremap <silent> <Space>ps :PreciousSwitch<CR>
-nnoremap <silent> <Space>pr :PreciousReset<CR>
-
-let g:precious_enable_switch_CursorMoved = {"*" : 0}
-let g:precious_enable_switch_CursorMoved_i = {"*" : 0}
-
-augroup test
-  autocmd!
-  autocmd InsertEnter * :PreciousSwitch
-augroup END
 
 " markdown
 autocmd MyAutoCmd BufRead,BufNewFile *.md  :set filetype=markdown
@@ -265,10 +248,5 @@ let g:quickrun_config = {
 
 nnoremap <Leader>r :QuickRun<Cr>
 vnoremap <Leader>r :QuickRun -mode v<CR>
-
-" precious+quickrun コンテキストの範囲でquickrun
-nmap <Space>q <Plug>(precious-quickrun-op)
-omap ic <Plug>(textobj-precious-i)
-vmap ic <Plug>(textobj-precious-i)
 
 
