@@ -34,7 +34,7 @@ set ruler               " 括弧の位置を表示
 "set showcmd             " コマンド表示
 set noshowmode          " コマンドを表示しない
 set pumheight=10        " 補完メニューの高さ
-set completeopt-=preview " 補完時にプレビューを別ウィンドウで開かない
+set completeopt=menuone " 補完メニューの設定
 set nowrap              " 画面端改行:無効
 set scrolloff=7         " 余裕を持ってスクロール
 set visualbell          " ビープ音を可視化
@@ -121,6 +121,9 @@ inoremap <C-f> <Right>
 inoremap <C-a> <C-o>^
 inoremap <C-e> <C-o>$
 
+" その他
+let g:python3_host_prog = expand('~/.pyenv/shims/python')
+
 "############################
 "dein設定
 "############################
@@ -158,9 +161,9 @@ if dein#load_state(s:dein_dir)
 endif
 
 " もし、未インストールのものがあったらインストール
-if dein#check_install()
-  call dein#install()
-endif
+" if dein#check_install()
+"   call dein#install()
+" endif
 
 "#################################
 "autocmd リセット
@@ -170,6 +173,7 @@ augroup MyAutoCmd
 augroup END
 
 
+"#################################
 "インデント・プラグイン on
 "#################################
 
@@ -196,13 +200,11 @@ let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 " NERDTree
 let NERDTreeShowHidden = 1
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
+
 autocmd MyAutoCmd StdinReadPre * let s:std_in=1
 autocmd MyAutoCmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
 " deoplete.vim
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#enable_ignore_case = 0
 
 " vim-go
 let g:go_highlight_functions = 1
@@ -254,4 +256,6 @@ let g:quickrun_config = {
 nnoremap <Leader>r :QuickRun<Cr>
 vnoremap <Leader>r :QuickRun -mode v<CR>
 
+" vimproc
+let g:vimproc_dll_path = '~/.cache/dein/repos/github.com/Shougo/vimproc.vim/lib/vimproc_mac.so'
 
