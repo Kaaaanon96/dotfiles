@@ -34,6 +34,7 @@ set ruler               " 括弧の位置を表示
 "set showcmd             " コマンド表示
 set noshowmode          " コマンドを表示しない
 set pumheight=10        " 補完メニューの高さ
+set completeopt-=preview " 補完時にプレビューを別ウィンドウで開かない
 set nowrap              " 画面端改行:無効
 set scrolloff=7         " 余裕を持ってスクロール
 set visualbell          " ビープ音を可視化
@@ -198,7 +199,7 @@ nnoremap <silent><C-e> :NERDTreeToggle<CR>
 autocmd MyAutoCmd StdinReadPre * let s:std_in=1
 autocmd MyAutoCmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-" deoplate.vim
+" deoplete.vim
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#enable_ignore_case = 0
@@ -217,8 +218,8 @@ let g:go_fmt_command = "goimports"
 
 let g:go_gocode_unimported_packages = 1
 
-" deoplate-go
-let g:deoplate#sources#go#gocode_binary = $GOPATH . 'bin/gocode'
+" deoplete-go
+let g:deoplete#sources#go#gocode_binary = $GOPATH . 'bin/gocode'
 
 " vim-precious
 nnoremap <silent> <Space>ps :PreciousSwitch<CR>
