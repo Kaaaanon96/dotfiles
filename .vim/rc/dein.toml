@@ -1,6 +1,7 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
+
 [[plugins]]
 repo    = 'vim-airline/vim-airline'
 depends = ['vim-airline-themes']
