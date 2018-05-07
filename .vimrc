@@ -1,10 +1,11 @@
 "# Author      : Kanon
 "# Since       : 2017/02/09
-"# LadtUpdate  : 2017/11/14
+"# LadtUpdate  : 2018/04/11
 
 set encoding=utf-8
 scriptencoding utf-8
 set fileencoding=utf-8
+
 
 "##################################
 "ファイルタイプ・プラグイン無効化
@@ -34,8 +35,9 @@ set ruler               " 括弧の位置を表示
 "set showcmd             " コマンド表示
 set noshowmode          " コマンドを表示しない
 set pumheight=10        " 補完メニューの高さ
+set completeopt=menuone " 補完メニューの表示設定
 set nowrap              " 画面端改行:無効
-set scrolloff=7         " 余裕を持ってスクロール
+set scrolloff=10        " 余裕を持ってスクロール
 set visualbell          " ビープ音を可視化
 set virtualedit=onemore " 行末の1文字先までカーソル
 set laststatus=2        " ステータスラインを常に表示
@@ -120,6 +122,9 @@ inoremap <C-f> <Right>
 inoremap <C-a> <C-o>^
 inoremap <C-e> <C-o>$
 
+" その他
+let g:python3_host_prog = expand('~/.pyenv/shims/python')
+
 "############################
 "dein設定
 "############################
@@ -157,9 +162,9 @@ if dein#load_state(s:dein_dir)
 endif
 
 " もし、未インストールのものがあったらインストール
-if dein#check_install()
-  call dein#install()
-endif
+" if dein#check_install()
+"   call dein#install()
+" endif
 
 "#################################
 "autocmd リセット
@@ -198,10 +203,8 @@ nnoremap <silent><C-e> :NERDTreeToggle<CR>
 autocmd MyAutoCmd StdinReadPre * let s:std_in=1
 autocmd MyAutoCmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-" deoplate.vim
+" deoplete.vim
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#enable_ignore_case = 0
 
 " vim-go
 let g:go_highlight_functions = 1
@@ -217,20 +220,9 @@ let g:go_fmt_command = "goimports"
 
 let g:go_gocode_unimported_packages = 1
 
-" deoplate-go
-let g:deoplate#sources#go#gocode_binary = $GOPATH . 'bin/gocode'
+" deoplete-go
+let g:deoplete#sources#go#gocode_binary = $GOPATH . 'bin/gocode'
 
-" vim-precious
-nnoremap <silent> <Space>ps :PreciousSwitch<CR>
-nnoremap <silent> <Space>pr :PreciousReset<CR>
-
-let g:precious_enable_switch_CursorMoved = {"*" : 0}
-let g:precious_enable_switch_CursorMoved_i = {"*" : 0}
-
-augroup test
-  autocmd!
-  autocmd InsertEnter * :PreciousSwitch
-augroup END
 
 " markdown
 autocmd MyAutoCmd BufRead,BufNewFile *.md  :set filetype=markdown
@@ -265,9 +257,6 @@ let g:quickrun_config = {
 nnoremap <Leader>r :QuickRun<Cr>
 vnoremap <Leader>r :QuickRun -mode v<CR>
 
-" precious+quickrun コンテキストの範囲でquickrun
-nmap <Space>q <Plug>(precious-quickrun-op)
-omap ic <Plug>(textobj-precious-i)
-vmap ic <Plug>(textobj-precious-i)
-
+" vimproc
+let g:vimproc_dll_path = '~/.cache/dein/repos/github.com/Shougo/vimproc.vim/lib/vimproc_mac.so'
 

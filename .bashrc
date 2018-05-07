@@ -2,6 +2,8 @@
 # bashのオプション
 # -------------------------------------
 
+export EDITOR=vim
+
 #--------------------------------------
 #histriyの設定
 #--------------------------------------
@@ -26,6 +28,15 @@ alias brew="env PATH=${PATH//$(pyenv root)\/shims:/} brew"
 # プロンプト
 # -----------------------------------
 
-export PS1="\u@\h:\W\$ "
+source /usr/local/etc/bash_completion.d/git-completion.bash
+source /usr/local/etc/bash_completion.d/git-prompt.sh
+
+GIT_PS1_SHOWDIRTYSTATE=true
+export PS1="\u@\h:\W\$(__git_ps1)$ "
 
 
+# -----------------------------------
+# phpbrew
+# -----------------------------------
+
+source $HOME/.phpbrew/bashrc
