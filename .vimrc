@@ -6,7 +6,6 @@ set encoding=utf-8
 scriptencoding utf-8
 set fileencoding=utf-8
 
-
 "##################################
 "ファイルタイプ・プラグイン無効化
 "##################################
@@ -174,6 +173,7 @@ augroup MyAutoCmd
 augroup END
 
 
+"#################################
 "インデント・プラグイン on
 "#################################
 
@@ -200,6 +200,7 @@ let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 " NERDTree
 let NERDTreeShowHidden = 1
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
+
 autocmd MyAutoCmd StdinReadPre * let s:std_in=1
 autocmd MyAutoCmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
@@ -222,7 +223,6 @@ let g:go_gocode_unimported_packages = 1
 
 " deoplete-go
 let g:deoplete#sources#go#gocode_binary = $GOPATH . 'bin/gocode'
-
 
 " markdown
 autocmd MyAutoCmd BufRead,BufNewFile *.md  :set filetype=markdown

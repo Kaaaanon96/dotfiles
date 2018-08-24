@@ -100,4 +100,3 @@ repo = 'othree/yajs.vim'
 on_ft = ['javascript', 'javascript.jsx', 'jsx']
 
 
-
