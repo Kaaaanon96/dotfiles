@@ -21,3 +21,11 @@ export GOPATH=~/go
 export PATH=$PATH:$GOPATH/bin
 export PATH="/usr/local/opt/mariadb@10.1/bin:$PATH"
 
+# react native
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+
+
