@@ -14,6 +14,12 @@
 
 setup.shでシンボリックリンクはるかんじで
 
+dark poweredなプラグイン周りで更新の必要があるっぽいけどできてない。
+
+## terminal用background image
+
+`svn export https://github.com/LazoCoder/Pokemon-Terminal/trunk/pokemonterminal/Images`
+
 ## 手動で必要な作業
 
 - Brewfileを用いたhomebrew環境の復元
