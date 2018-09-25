@@ -6,6 +6,7 @@ DOT_FILES=(
   .gnuplot 
   .vimrc 
   .vim
+  .ctags.d
   )
 
 for file in ${DOT_FILES[@]}

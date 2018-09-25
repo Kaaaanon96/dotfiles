@@ -2,6 +2,7 @@ tap "homebrew/bundle"
 tap "homebrew/core"
 tap "homebrew/python"
 tap "homebrew/science"
+tap "universal-ctags/universal-ctags"
 brew "git"
 brew "wget"
 brew "autoconf"
@@ -30,3 +31,4 @@ brew "vim", args: ["with-python3", "with-lua"]
 brew "pandoc"
 brew "gibo"
 brew "bat"
+brew "universal-ctags", args: ["HEAD"]

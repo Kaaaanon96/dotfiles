@@ -23,6 +23,8 @@ alias cp='cp -i'
 alias df='df -h'
 alias relogin='exec -l $SHELL'
 alias brew="env PATH=${PATH//$(pyenv root)\/shims:/} brew"
+alias ctags="`brew --prefix`/bin/ctags"
+alias phptags="ctags -R --languages=PHP -f ./php.tags "
 
 # -----------------------------------
 # プロンプト

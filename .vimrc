@@ -23,6 +23,13 @@ set autoread            " 編集中のファイルが変更されたら自動再
 set hidden              " バッファが編集中でもその他のファイルを開けるように
 
 "################
+"タグ周り
+"################
+
+set tags=./tags;        " タグの設定
+"autocmd MyAutoCmd BufNewFile,BufRead *.php set tags=./php.tags;
+
+"################
 "表示設定
 "################
 
@@ -203,6 +210,11 @@ nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
 autocmd MyAutoCmd StdinReadPre * let s:std_in=1
 autocmd MyAutoCmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" tagbar
+let g:tagbar_sort = 0
+nnoremap <silent><Space><C-e> :TagbarToggle<CR>
+
 
 " deoplete.vim
 let g:deoplete#enable_at_startup = 1

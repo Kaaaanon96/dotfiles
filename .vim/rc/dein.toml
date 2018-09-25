@@ -48,6 +48,9 @@ repo = 'thinca/vim-quickrun'
 repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
+repo = 'majutsushi/tagbar'
+
+[[plugins]]
 repo = 'Shougo/vimproc.vim'
 hook_post_update = '''
   if dein#util#_is_windows()

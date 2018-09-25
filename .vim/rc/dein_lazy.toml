@@ -61,14 +61,20 @@ hook_post_source = '''
 	call denite#custom#map('insert', '<C-b>', '<denite:scroll_page_backwards>', 'noremap')
 
   call denite#custom#map('insert', '<C-i>', '<denite:do_action:split>')
-  call denite#custom#map('insert', '<C-s>', '<denite:do_action:vsplit>')
+  call denite#custom#map('insert', '<C-v>', '<denite:do_action:vsplit>')
+  call denite#custom#map('normal', '<C-i>', '<denite:do_action:split>')
+  call denite#custom#map('normal', '<C-v>', '<denite:do_action:vsplit>')
+
   call denite#custom#source('grep', 'converters', ['converter/abbr_word'])
 '''
 hook_add = '''
   nnoremap <C-u><C-p> :<C-u>Denite file_rec -highlight-mode-insert=Search<CR>
   nnoremap <C-u><C-b> :<C-u>Denite buffer<CR>
-  nnoremap <C-u><C-r> :<C-u>Denite -resume<CR>
   nnoremap <C-u><C-g> :<C-u>Denite grep -highlight-mode-insert=Search<CR>
+  nnoremap <C-u><C-r> :<C-u>Denite -resume<CR>
+  nnoremap <C-u><C-n> :<C-u>Denite -resume -cursor-pos=+1 -immediately<CR>
+  nnoremap <C-u><C-o> :<C-u>Denite outline -highlight-mode-insert=Search -post-action=open -split=vertical -winwidth=40<CR>
+  nnoremap <expr> <C-u><C-]> &filetype == 'help' ? "g\<C-]>" : ":\<C-u>DeniteCursorWord tag -highlight-mode-insert=Search\<CR>"
 '''
 
 [[plugins]]
