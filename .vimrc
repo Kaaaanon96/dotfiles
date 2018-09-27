@@ -277,3 +277,5 @@ vnoremap <Leader>r :QuickRun -mode v<CR>
 " vimproc
 let g:vimproc_dll_path = '~/.cache/dein/repos/github.com/Shougo/vimproc.vim/lib/vimproc_mac.so'
 
+" editconfig
+let g:EditorConfig_exclude_patterns = ['fugitive：//.*']
