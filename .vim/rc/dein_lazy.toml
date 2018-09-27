@@ -12,26 +12,9 @@ on_ft = 'go'
 repo = 'zchee/deoplete-jedi'
 on_ft = 'python'
 
-# [[plugins]]
-# repo = 'fishbullet/deoplete-ruby'
-# on_ft = 'ruby'
-# 
-# [[plugins]]
-# repo = 'Shougo/deoplete-rct'
-# on_ft = 'ruby'
-
 [[plugins]]
 repo = 'uplus/deoplete-solargraph'
 on_ft = 'ruby'
-
-[[plugins]]
-repo = 'Shougo/deoplete.nvim'
-on_event = 'InsertEnter'
-depends = ['vim-hug-neovim-rpc','nvim-yarp']
-hook_post_source = '''
-  call deoplete#custom#option('smart_case', v:true)
-  call deoplete#custom#option('ignore_case', v:false)
-'''
 
 [[plugins]]
 repo = 'osyo-manga/vim-monster'
@@ -41,6 +24,23 @@ hook_source = '''
   let g:deoplete#sources#omni#input_patterns = {
     \ "ruby" : '[^. *\t]\.\w*\|\h\w*::',
     \}
+'''
+
+[[plugins]]
+repo = 'lvht/phpcd.vim'
+on_ft = 'php'
+hook_post_source = '''
+  let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+  let g:deoplete#ignore_sources.php = ['omni']
+'''
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+on_event = 'InsertEnter'
+depends = ['vim-hug-neovim-rpc','nvim-yarp']
+hook_post_source = '''
+  call deoplete#custom#option('smart_case', v:true)
+  call deoplete#custom#option('ignore_case', v:false)
 '''
 
 [[plugins]]
@@ -75,6 +75,8 @@ hook_add = '''
   nnoremap <C-u><C-n> :<C-u>Denite -resume -cursor-pos=+1 -immediately<CR>
   nnoremap <C-u><C-o> :<C-u>Denite outline -highlight-mode-insert=Search -post-action=open -split=vertical -winwidth=40<CR>
   nnoremap <expr> <C-u><C-]> &filetype == 'help' ? "g\<C-]>" : ":\<C-u>DeniteCursorWord tag -highlight-mode-insert=Search\<CR>"
+
+  tnoremap <C-u><C-y> <C-w>:Denite register<CR>
 '''
 
 [[plugins]]

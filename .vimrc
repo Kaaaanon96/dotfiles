@@ -23,13 +23,6 @@ set autoread            " 編集中のファイルが変更されたら自動再
 set hidden              " バッファが編集中でもその他のファイルを開けるように
 
 "################
-"タグ周り
-"################
-
-set tags=./tags;        " タグの設定
-"autocmd MyAutoCmd BufNewFile,BufRead *.php set tags=./php.tags;
-
-"################
 "表示設定
 "################
 
@@ -80,6 +73,20 @@ set wildmenu
 set wildmode=longest:full,full
 set history=5000
 
+"#################################
+"autocmd リセット
+"#################################
+
+augroup MyAutoCmd
+  autocmd! *
+augroup END
+
+"################
+"タグ周り
+"################
+
+set tags=./tags;        " タグの設定
+autocmd MyAutoCmd BufNewFile,BufRead *.php set tags=./php.tags;
 
 "############################
 "入力設定
@@ -88,6 +95,9 @@ set history=5000
 set backspace=indent,eol,start  " バックスペースの有効化
 "set clipboard+=unnamed          " クリップボードを共通に
 set timeout timeoutlen=1000 ttimeoutlen=75
+
+" w!!でsudoで保存
+cnoremap w!! w !sudo tee %<CR>
 
 " Yで行末までヤンク
 noremap Y y$
@@ -127,6 +137,9 @@ inoremap <C-f> <Right>
 " inoremap <M-f> <S-Right>
 inoremap <C-a> <C-o>^
 inoremap <C-e> <C-o>$
+
+" terminal
+tnoremap <silent><C-w><Esc> <C-w><S-n>:set nonumber<CR>
 
 " その他
 let g:python3_host_prog = expand('~/.pyenv/shims/python')
@@ -171,14 +184,6 @@ endif
 " if dein#check_install()
 "   call dein#install()
 " endif
-
-"#################################
-"autocmd リセット
-"#################################
-augroup MyAutoCmd
-  autocmd! *
-augroup END
-
 
 "#################################
 "インデント・プラグイン on
