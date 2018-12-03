@@ -85,7 +85,7 @@ on_event = 'InsertEnter'
 
 [[plugins]]
 repo = 'mattn/emmet-vim'
-on_ft = ['html', 'css', 'eruby']
+on_ft = ['html', 'css', 'eruby', 'php']
 
 [[plugins]]
 repo = 'gabrielelana/vim-markdown'

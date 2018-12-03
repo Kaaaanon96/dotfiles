@@ -7,6 +7,7 @@ DOT_FILES=(
   .vimrc 
   .vim
   .ctags.d
+  .gitignore_global
   )
 
 for file in ${DOT_FILES[@]}
@@ -24,4 +25,9 @@ do
     echo "シンボリックリンクを張りまして: $file"
   fi
 done
+
+git config --global core.excludesfile ~/.gitignore_global
+
+echo "終わり"
+
 
