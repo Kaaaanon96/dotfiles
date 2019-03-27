@@ -28,13 +28,15 @@ dark poweredなプラグイン周りで更新の必要があるっぽいけど�
 
 - deopleteの設定
   - `pip3 install neovim`
-    - PATHが通ってなくてエラーを吐く時がある
+  - `pip3 install --user pynvim`
+    - pyenvで環境作ってるとうまくいかんかも
 
 - vim-go
   - `:GoInstallBinaries`
+  - `https://github.com/stamblerre/gocode`
 
-- deoplete-go
-  - `go get -u github.com/nsf/gocode`
+- golspを使う
+  - `go get -u golang.org/x/tools/cmd/golsp`
 
 - deoplete-solargraph
   - Install
