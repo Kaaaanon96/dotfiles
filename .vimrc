@@ -85,8 +85,10 @@ augroup END
 "タグ周り
 "################
 
-set tags=./tags;        " タグの設定
+set tags=./tags;
 autocmd MyAutoCmd BufNewFile,BufRead *.php set tags=./php.tags;
+autocmd MyAutoCmd BufNewFile,BufRead *.rb set tags=./ruby.tags;
+autocmd MyAutoCmd BufNewFile,BufRead *.rb set tags=./gemlock.tags;
 
 "############################
 "入力設定
@@ -220,26 +222,8 @@ autocmd MyAutoCmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | 
 let g:tagbar_sort = 0
 nnoremap <silent><Space><C-e> :TagbarToggle<CR>
 
-
 " deoplete.vim
 let g:deoplete#enable_at_startup = 1
-
-" vim-go
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_vonstraints = 1
-
-let g:go_fmt_fail_silently = 1
-let g:go_fmt_autosave = 0
-let g:go_fmt_command = "goimports"
-
-let g:go_gocode_unimported_packages = 1
-
-" deoplete-go
-let g:deoplete#sources#go#gocode_binary = $GOPATH . 'bin/gocode'
 
 " markdown
 autocmd MyAutoCmd BufRead,BufNewFile *.md  :set filetype=markdown

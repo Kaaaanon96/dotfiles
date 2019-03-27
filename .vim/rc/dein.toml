@@ -24,6 +24,26 @@ repo = 'nathanaelkane/vim-indent-guides'
 repo = 'tpope/vim-fugitive'
 
 [[plugins]]
+repo = 'autozimu/LanguageClient-neovim'
+rev = 'next'
+build = 'bash install.sh'
+depends = ['deoplete.nvim']
+hook_add = '''
+  set hidden
+  let g:LanguageClient_serverCommands = {
+    \ 'go': ['golsp']
+  \}
+  let g:LanguageClient_loadSettings = 1
+  let g:LanguageClient_autoStart = 1
+'''
+hook_source = '''
+  set completefunc=LanguageClient#complete
+  call deoplete#custom#source('LanguageClient',
+              \ 'min_pattern_length',
+              \ 2)
+'''
+
+[[plugins]]
 repo = 'roxma/nvim-yarp'
 
 [[plugins]]
