@@ -8,10 +8,11 @@ fi
 # User specific environment and startup programs
 PYENV_ROOT=~/.pyenv
 RBENV_ROOT=~/.rbenv
+NDENV_ROOT=~/.ndenv
 
 export PATH=$PATH:$PYENV_ROOT/bin
 export PATH=$PATH:$RBENV_ROOT/bin
-export PATH=$PATH:$HOME/.ndenv/bin
+export PATH=$PATH:$NDENV_ROOT/bin
 
 eval "$(pyenv init -)"
 eval "$(rbenv init -)"

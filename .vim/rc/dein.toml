@@ -1,6 +1,7 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
+# 見た目系
 [[plugins]]
 repo    = 'vim-airline/vim-airline'
 depends = ['vim-airline-themes']
@@ -15,6 +16,9 @@ repo = 'scrooloose/nerdtree'
 repo = 'Xuyuanp/nerdtree-git-plugin'
 
 [[plugins]]
+repo = 'majutsushi/tagbar'
+
+[[plugins]]
 repo = 'airblade/vim-gitgutter'
 
 [[plugins]]
@@ -23,26 +27,7 @@ repo = 'nathanaelkane/vim-indent-guides'
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 
-[[plugins]]
-repo = 'autozimu/LanguageClient-neovim'
-rev = 'next'
-build = 'bash install.sh'
-depends = ['deoplete.nvim']
-hook_add = '''
-  set hidden
-  let g:LanguageClient_serverCommands = {
-    \ 'go': ['golsp']
-  \}
-  let g:LanguageClient_loadSettings = 1
-  let g:LanguageClient_autoStart = 1
-'''
-hook_source = '''
-  set completefunc=LanguageClient#complete
-  call deoplete#custom#source('LanguageClient',
-              \ 'min_pattern_length',
-              \ 2)
-'''
-
+# 補完(deoplete/lsp)周り
 [[plugins]]
 repo = 'roxma/nvim-yarp'
 
@@ -52,6 +37,66 @@ repo = 'roxma/vim-hug-neovim-rpc'
 [[plugins]]
 repo = 'lambdalisue/vim-pyenv'
 
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+#on_event = 'InsertEnter'
+depends = ['vim-hug-neovim-rpc','nvim-yarp']
+hook_add = '''
+  let g:deoplete#enable_at_startup = 1
+  set completeopt-=preview
+  call deoplete#custom#option({
+  \ 'auto_complete': v:true,
+  \ 'auto_complete_delay': 0,
+  \ 'smart_case': v:true,
+  \ 'ignore_case': v:false,
+  \ })
+
+  call deoplete#custom#var('omni', 'input_patterns', {
+      \ 'ruby': ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::'],
+      \ 'php': '\w+|[^. \t]->\w*|\w+::\w*',
+  \})
+
+'''
+
+[[plugins]]
+repo = 'autozimu/LanguageClient-neovim'
+rev = 'next'
+build = 'bash install.sh'
+hook_add='''
+  let g:LanguageClient_autoStart = 1
+  let g:LanguageClient_loadSettings = 1
+'''
+hook_source= '''
+  set hidden
+  let g:LanguageClient_serverCommands = {
+    \ 'go': ['golsp'],
+    \ 'ruby': ['solargraph', 'stdio'],
+    \ 'php': ['intelephense', '--stdio'],
+  \}
+
+  set completefunc=LanguageClient#complete
+  call deoplete#custom#source('LanguageClient',
+              \ 'min_pattern_length',
+              \ 2)
+
+  nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
+  nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
+  nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
+  nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+  nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
+  nnoremap <leader>la :call LanguageClient_workspace_applyEdit()<CR>
+  nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
+  nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
+  nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
+  nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
+'''
+
+[[plugins]]
+repo = 'zchee/deoplete-jedi'
+on_ft = 'python'
+
+
+# 操作系
 [[plugins]]
 repo = 'osyo-manga/vim-over'
 
@@ -66,9 +111,6 @@ repo = 'thinca/vim-quickrun'
 
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
-
-[[plugins]]
-repo = 'majutsushi/tagbar'
 
 [[plugins]]
 repo = 'Shougo/vimproc.vim'

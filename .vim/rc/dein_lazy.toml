@@ -59,47 +59,9 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'zchee/deoplete-jedi'
-on_ft = 'python'
-
-[[plugins]]
-repo = 'uplus/deoplete-solargraph'
-on_ft = 'ruby'
-
-[[plugins]]
-repo = 'osyo-manga/vim-monster'
-hook_source = '''
-  let g:monster#completion#backend = 'solargraph'
-  let g:monster#completion#solargraph#backend = "async_solargraph_suggest"
-  let g:deoplete#sources#omni#input_patterns = {
-    \ "ruby" : '[^. *\t]\.\w*\|\h\w*::',
-    \}
-'''
-
-[[plugins]]
-repo = 'lvht/phpcd.vim'
-on_ft = 'php'
-hook_post_source = '''
-  let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
-  let g:deoplete#ignore_sources.php = ['omni']
-'''
-
-[[plugins]]
-repo = 'Shougo/deoplete.nvim'
-on_event = 'InsertEnter'
-depends = ['vim-hug-neovim-rpc','nvim-yarp']
-hook_add = '''
-  let g:deoplete#enable_at_startup = 1
-'''
-hook_post_source = '''
-  call deoplete#custom#option('smart_case', v:true)
-  call deoplete#custom#option('ignore_case', v:false)
-'''
-
-[[plugins]]
 repo = 'Shougo/denite.nvim'
 hook_post_source = '''
-  call denite#custom#var('file_rec', 'command', ['rg', '-uu', '--files', '--glob', '!.git'])
+  call denite#custom#var('file/rec', 'command', ['rg', '-uu', '--files', '--glob', '!.git'])
   call denite#custom#var('grep', 'command', ['rg'])
 	call denite#custom#var('grep', 'default_opts', ['-uu', '--vimgrep', '--no-heading'])
 	call denite#custom#var('grep', 'recursive_opts', [])
@@ -121,7 +83,7 @@ hook_post_source = '''
   call denite#custom#source('grep', 'converters', ['converter/abbr_word'])
 '''
 hook_add = '''
-  nnoremap <C-u><C-p> :<C-u>Denite file_rec -highlight-mode-insert=Search<CR>
+  nnoremap <C-u><C-p> :<C-u>Denite file/rec -highlight-mode-insert=Search<CR>
   nnoremap <C-u><C-b> :<C-u>Denite buffer<CR>
   nnoremap <C-u><C-g> :<C-u>Denite grep -highlight-mode-insert=Search<CR>
   nnoremap <C-u><C-r> :<C-u>Denite -resume<CR>

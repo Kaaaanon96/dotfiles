@@ -38,18 +38,18 @@ dark poweredなプラグイン周りで更新の必要があるっぽいけど�
 - golspを使う
   - `go get -u golang.org/x/tools/cmd/golsp`
 
-- deoplete-solargraph
+- solargraph
+  - rbenv等を使っている場合使用するversionでそれぞれ入れる
+    - いい感じに1つで済ませたい
   - Install
     - `gem install solargraph`
-    - `pip install solargraph-utils.py --user`
   - setup
     - `yard gems `
     - `yard config --gem-install-yri`
 
-- phpcd.vim
-  - Install
-    - phpcdのディレクトリで`composer install`
-    - php7系のインストールが必要
+- (php-intelephense)[https://www.npmjs.com/package/intelephense]
+  - `npm i intelephense -g`
+  - 内部のlspの呼び出しが環境依存でイケてないのでどうにかする
 
 - vimproc
   - buildした結果が標準と違う場所に入る。
@@ -61,12 +61,9 @@ dark poweredなプラグイン周りで更新の必要があるっぽいけど�
   - `call map(dein#check_clean(), "delete(v:val, 'rf')")`
   - `call dein#recache_runtimepath()`
 
-
-#### メモ
-
-`on_i`は非推奨らしいので`on_event = 'InsertEnter'`を使う
-
 #### todo
 
 golang, ruby, python, phpあたりの導入の自動化
 
+
+tomlのhook系が適当すぎるのでちゃんと調べて修正

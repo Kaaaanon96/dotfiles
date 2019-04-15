@@ -34,7 +34,7 @@ set ruler               " 括弧の位置を表示
 "set showcmd             " コマンド表示
 set noshowmode          " コマンドを表示しない
 set pumheight=10        " 補完メニューの高さ
-set completeopt=menuone " 補完メニューの表示設定
+" set completeopt=menuone " 補完メニューの表示設定
 set nowrap              " 画面端改行:無効
 set scrolloff=10        " 余裕を持ってスクロール
 set visualbell          " ビープ音を可視化
@@ -97,6 +97,9 @@ autocmd MyAutoCmd BufNewFile,BufRead *.rb set tags=./gemlock.tags;
 set backspace=indent,eol,start  " バックスペースの有効化
 "set clipboard+=unnamed          " クリップボードを共通に
 set timeout timeoutlen=1000 ttimeoutlen=75
+
+" leaderを変更
+let mapleader = ","
 
 " w!!でsudoで保存
 cnoremap w!! w !sudo tee %<CR>
@@ -195,6 +198,7 @@ filetype plugin indent on
 
 "################################
 "ぷらぎん関係の設定
+"tomlに移行する
 "################################
 
 " airline の設定
@@ -221,9 +225,6 @@ autocmd MyAutoCmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | 
 " tagbar
 let g:tagbar_sort = 0
 nnoremap <silent><Space><C-e> :TagbarToggle<CR>
-
-" deoplete.vim
-let g:deoplete#enable_at_startup = 1
 
 " markdown
 autocmd MyAutoCmd BufRead,BufNewFile *.md  :set filetype=markdown
