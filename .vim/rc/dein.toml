@@ -42,8 +42,10 @@ hook_add = '''
   let g:deoplete#enable_at_startup = 1
   set completeopt-=preview
   call deoplete#custom#option({
+  \ 'max_list': 200,
   \ 'auto_complete': v:true,
   \ 'auto_complete_delay': 0,
+  \ 'auto_refresh_delay': 10,
   \ 'smart_case': v:true,
   \ 'ignore_case': v:false,
   \ })
