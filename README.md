@@ -35,8 +35,8 @@ dark poweredなプラグイン周りで更新の必要があるっぽいけど�
   - `:GoInstallBinaries`
   - `https://github.com/stamblerre/gocode`
 
-- golspを使う
-  - `go get -u golang.org/x/tools/cmd/golsp`
+- gopls(golspから名前変わった)
+  - `go get -u golang.org/x/tools/cmd/gopls`
 
 - solargraph
   - rbenv等を使っている場合使用するversionでそれぞれ入れる
@@ -67,3 +67,4 @@ golang, ruby, python, phpあたりの導入の自動化
 
 
 tomlのhook系が適当すぎるのでちゃんと調べて修正
+

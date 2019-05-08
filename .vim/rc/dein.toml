@@ -45,7 +45,6 @@ hook_add = '''
   \ 'max_list': 200,
   \ 'auto_complete': v:true,
   \ 'auto_complete_delay': 0,
-  \ 'auto_refresh_delay': 10,
   \ 'smart_case': v:true,
   \ 'ignore_case': v:false,
   \ })
@@ -67,7 +66,7 @@ hook_add='''
   let g:LanguageClient_loadSettings = 1
 
   let g:LanguageClient_serverCommands = {
-    \ 'go': ['golsp'],
+    \ 'go': ['gopls'],
     \ 'ruby': ['solargraph', 'stdio'],
     \ 'php': ['intelephense', '--stdio'],
   \}
@@ -77,7 +76,7 @@ hook_add='''
               \ 'min_pattern_length',
               \ 2)
 
-  nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
+  nnoremap <leader>ld :call LanguageClient#textDocument_definition({'gotoCmd': 'vsplit'})<CR>
   nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
   nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
   nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>

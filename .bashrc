@@ -26,7 +26,6 @@ alias brew="env PATH=${PATH//$(pyenv root)\/shims:/} brew"
 alias ctags="`brew --prefix`/bin/ctags"
 alias phptags="ctags -R --languages=PHP -f ./php.tags "
 alias rubytags="ctags -R --languages=RUBY --exclude='*.js' -f ./ruby.tags"
-alias gemtags="ctags -R --languages=RUBY --exclude='*.js' -f ./gemlock.tags . $(bundle list --paths)"
 
 # -----------------------------------
 # プロンプト
