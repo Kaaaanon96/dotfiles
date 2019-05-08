@@ -35,9 +35,6 @@ repo = 'roxma/nvim-yarp'
 repo = 'roxma/vim-hug-neovim-rpc'
 
 [[plugins]]
-repo = 'lambdalisue/vim-pyenv'
-
-[[plugins]]
 repo = 'Shougo/deoplete.nvim'
 #on_event = 'InsertEnter'
 depends = ['vim-hug-neovim-rpc','nvim-yarp']

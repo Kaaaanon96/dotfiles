@@ -149,6 +149,13 @@ tnoremap <silent><C-w><Esc> <C-w><S-n>:set nonumber<CR>
 " その他
 let g:python3_host_prog = expand('~/.pyenv/shims/python')
 
+"#########################
+"util script
+"#########################
+
+source ~/dotfiles/.vimrc.script " 外部ファイル読み込み
+
+
 "############################
 "dein設定
 "############################
@@ -264,3 +271,4 @@ let g:vimproc_dll_path = '~/.cache/dein/repos/github.com/Shougo/vimproc.vim/lib/
 
 " editconfig
 let g:EditorConfig_exclude_patterns = ['fugitive：//.*']
+
