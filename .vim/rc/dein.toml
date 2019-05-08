@@ -63,11 +63,10 @@ repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
 build = 'bash install.sh'
 hook_add='''
+  set hidden
   let g:LanguageClient_autoStart = 1
   let g:LanguageClient_loadSettings = 1
-'''
-hook_source= '''
-  set hidden
+
   let g:LanguageClient_serverCommands = {
     \ 'go': ['golsp'],
     \ 'ruby': ['solargraph', 'stdio'],
