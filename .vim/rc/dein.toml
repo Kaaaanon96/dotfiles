@@ -45,6 +45,9 @@ hook_add = '''
   \ 'max_list': 200,
   \ 'auto_complete': v:true,
   \ 'auto_complete_delay': 0,
+  \ 'auto_refresh_delay': 20,
+  \ 'refresh_always': v:true,
+  \ 'skip_multibyte': v:true,
   \ 'smart_case': v:true,
   \ 'ignore_case': v:false,
   \ })
@@ -104,10 +107,19 @@ repo =  'haya14busa/is.vim'
 repo = 'haya14busa/vim-asterisk'
 
 [[plugins]]
+repo = 'thinca/vim-showtime'
+
+[[plugins]]
 repo = 'thinca/vim-quickrun'
 
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
+
+[[plugins]]
+repo = 'vim-jp/vimdoc-ja'
+hook_add = '''
+set helplang=ja
+'''
 
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
