@@ -46,6 +46,7 @@ set ambiwidth=double    " 全角記号を正確に表示
 "カラースキーム
 "###################
 
+set redrawtime=4000
 syntax on
 color dracula
 
@@ -88,7 +89,7 @@ augroup END
 set tags=./tags;
 autocmd MyAutoCmd BufNewFile,BufRead *.php set tags=./php.tags;
 autocmd MyAutoCmd BufNewFile,BufRead *.rb set tags=./ruby.tags;
-autocmd MyAutoCmd BufNewFile,BufRead *.rb set tags=./gemlock.tags;
+" autocmd MyAutoCmd BufNewFile,BufRead *.rb set tags=./gemlock.tags;
 
 "############################
 "入力設定
@@ -97,6 +98,9 @@ autocmd MyAutoCmd BufNewFile,BufRead *.rb set tags=./gemlock.tags;
 set backspace=indent,eol,start  " バックスペースの有効化
 "set clipboard+=unnamed          " クリップボードを共通に
 set timeout timeoutlen=1000 ttimeoutlen=75
+
+" %ジャンプの拡張
+source $VIMRUNTIME/macros/matchit.vim
 
 " leaderを変更
 let mapleader = ","
@@ -146,15 +150,12 @@ inoremap <C-e> <C-o>$
 " terminal
 tnoremap <silent><C-w><Esc> <C-w><S-n>:set nonumber<CR>
 
-" その他
-let g:python3_host_prog = expand('~/.pyenv/shims/python')
 
 "#########################
 "util script
 "#########################
 
 source ~/dotfiles/.vimrc.script " 外部ファイル読み込み
-
 
 "############################
 "dein設定
