@@ -1,0 +1,212 @@
+let s:plugvim = expand('~/.vim/autoload/plug.vim')
+if empty(glob(s:plugvim))
+  execute "silent !curl -fLo " . s:plugvim . " --create-dirs "
+        \ . "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+  " autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+if !empty(glob(s:plugvim))
+  call plug#begin('~/.vim/plugged')
+
+  Plug 'vim-jp/vimdoc-ja'
+  set helplang=ja
+
+  "################################
+  " View, Design
+  "################################
+  Plug 'dracula/vim', { 'as': 'dracula' }
+
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  let g:airline#extensions#tabline#enabled  = 1
+  let g:airline#extensions#branch#enavled   = 1
+
+  " Plug#endあとにsyntax設定ある
+
+  "################################
+  " File tree
+  "################################
+  Plug 'scrooloose/nerdtree'
+  Plug 'Xuyuanp/nerdtree-git-plugin'
+  let NERDTreeShowHidden = 1
+  nnoremap <silent><C-e> :NERDTreeToggle<CR>
+
+  autocmd MyAutoCmd StdinReadPre * let s:std_in=1
+  autocmd MyAutoCmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+  "################################
+  " Git
+  "################################
+  Plug 'airblade/vim-gitgutter'
+  Plug 'tpope/vim-fugitive'
+
+  "################################
+  " Text 
+  "################################
+  Plug 'cohama/lexima.vim'
+  Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'eruby', 'php'] }
+
+  "################################
+  " Substitute
+  "################################
+  Plug 'osyo-manga/vim-over'
+  nnoremap <silent> <Space>o :OverCommandLine<CR>%s//g<Left><Left>
+  vnoremap <silent> <Space>o :OverCommandLine<CR>s//g<Left><Left>
+  nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
+
+  "################################
+  " Search
+  "################################
+  Plug 'haya14busa/is.vim'
+  Plug 'haya14busa/vim-asterisk'
+  map *  <Plug>(asterisk-z*)<Plug>(is-nohl-1)
+  map g* <Plug>(asterisk-gz*)<Plug>(is-nohl-1)
+  map #  <Plug>(asterisk-z#)<Plug>(is-nohl-1)
+  map g# <Plug>(asterisk-gz#)<Plug>(is-nohl-1)
+
+  Plug '~/.cache/.fzf'
+  Plug 'junegunn/fzf.vim'
+  let g:fzf_buffers_jump = 1
+  let g:fzf_command_prefix = 'Fzf'
+  let g:fzf_action ={
+    \ 'ctrl-i': 'split',
+    \ 'ctrl-v': 'vsplit' }
+
+  command! -bang -nargs=? -complete=dir Files
+        \ call fzf#vim#files(
+        \ <q-args>,
+        \ <bang>0 ? fzf#vim#with_preview({'options': '--reverse', 'source': 'rg --files --hidden --follow --no-ignore --glob "!.git/*"', 'down': 20}, 'up:60%')
+        \ : fzf#vim#with_preview({'options': '--reverse', 'source': 'rg --files --hidden --follow --no-ignore --glob "!.git/*"', 'down': 20}, 'right:50%:hidden', '?'),
+        \ <bang>0)
+
+  command! -bang -nargs=* Rg
+        \ call fzf#vim#grep(
+        \ 'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
+        \ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..', 'down': 20}, 'up:60%')
+        \ : fzf#vim#with_preview({'options': '--reverse --delimiter : --nth 4..', 'down': 20}, 'right:50%:hidden', '?'),
+        \ <bang>0)
+
+  nnoremap <C-u><C-t> :<C-u><CR>
+  nnoremap <C-u><C-p> :<C-u>Files<CR>
+  nnoremap <C-u><C-b> :<C-u>FzfBuffers<CR>
+  nnoremap <C-u><C-g> :<C-u>Rg<CR>
+  nnoremap <C-u><C-j> :<C-u>FzfBLines<CR>
+  nnoremap <C-u><C-h> :<C-u>FzfHistory<CR>
+  nnoremap <C-u><C-r> :<C-u>FzfHistory:<CR>
+  " nnoremap <C-u><C-r> :<C-u><C-u>Denite -resume<CR>
+  " nnoremap <C-u><C-n> :<C-u><C-u>Denite -resume -cursor-pos=+1 -immediately<CR>
+  " nnoremap <C-u><C-o> :<C-u><C-u>Denite outline -highlight-mode-insert=Search -post-action=open -split=vertical -winwidth=40<CR>
+  nnoremap <expr> <C-u><C-]> &filetype == 'help' ? "g\<C-]>" : ":call fzf#vim#tags(expand('<cword>'), {'down': 10})\<CR>"
+
+  inoremap <expr> <C-x><C-u><C-f> fzf#vim#complete#path('rg --files --hidden --no-ignore', {'options': '--reverse', 'down': 10})
+
+  " tnoremap <C-u><C-y> <C-w>:Denite register<CR>
+
+  "################################
+  " style
+  "################################
+  Plug 'editorconfig/editorconfig-vim'
+  let g:EditorConfig_exclude_patterns = ['fugitive：//.*']
+
+  "################################
+  " Complement
+  "################################
+  Plug 'prabirshrestha/async.vim'
+  Plug 'prabirshrestha/vim-lsp'
+  Plug 'prabirshrestha/asyncomplete.vim'
+  Plug 'prabirshrestha/asyncomplete-lsp.vim'
+  Plug 'mattn/vim-lsp-settings'
+  let g:lsp_fold_enabled = 0
+  let g:lsp_diagnostics_enabled = 1
+  let g:lsp_signs_enabled = 1
+  let g:lsp_diagnostics_echo_cursor = 1
+  let g:lsp_settings={
+    \ 'go': {'cmd': ['gopls']},
+    \ 'ruby': {'cmd': ['solargraph', 'stdio']},
+    \ 'php': {'cmd': ['intelephense', '--stdio']},
+  \}
+
+  nnoremap <leader>ld :<C-u>vsp<CR>:<C-u>LspDefinition<CR>
+  nnoremap <leader>lr :<C-u>LspRename<CR>
+  nnoremap <leader>lf :<C-u>LspDocumentFormat<CR>
+  vnoremap <leader>lf :<C-u>LspDocumentRangeFormat<CR>
+  nnoremap <leader>lt :<C-u>vsp<CR>:<C-u>LspTypeDefinition<CR>
+  nnoremap <leader>lx :<C-u>vsp<CR>:<C-u>LspReferences<CR>
+  nnoremap <leader>lh :<C-u>LspHover<CR>
+  nnoremap <leader>ls :<C-u>LspDocumentSymbol<CR>
+  nnoremap <leader>lws :<C-u>LspWorkspaceSymbol<CR>
+  nnoremap <leader>ln :<C-u>LspNextDiagnostic<CR>
+  nnoremap <leader>lp :<C-u>LspPreviousDiagnostic<CR>
+  nnoremap <leader>la :<C-u>LspCodeAction<CR>
+
+  "################################
+  " language
+  "################################
+  Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
+  let g:markdown_enable_insert_mode_leader_mappings = 1 
+  let g:markdown_enable_spell_checking = 0
+
+  Plug 'hail2u/vim-css3-syntax', { 'for': ['html', 'css'] }
+  Plug 'elzr/vim-json', { 'for': 'json' }
+  Plug 'cespare/vim-toml', { 'for': 'toml' }
+  Plug 'othree/yajs.vim', { 'for': ['javascript', 'javascript.jsx', 'jsx'] }
+
+  "################################
+  " tag
+  "################################
+  Plug 'majutsushi/tagbar'
+  let g:tagbar_sort = 0
+  nnoremap <silent><Space><C-e> :TagbarToggle<CR>
+  let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+      \ 'p:package',
+      \ 'i:imports:1',
+      \ 'c:constants',
+      \ 'v:variables',
+      \ 't:types',
+      \ 'n:interfaces',
+      \ 'w:fields',
+      \ 'e:embedded',
+      \ 'm:methods',
+      \ 'r:constructor',
+      \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+      \ 't' : 'ctype',
+      \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+      \ 'ctype' : 't',
+      \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+  \ }
+
+  "################################
+  " quickrun
+  "################################
+  Plug 'thinca/vim-quickrun'
+
+  "################################
+  " Showtime
+  "################################
+  Plug 'thinca/vim-showtime'
+
+  call plug#end()
+endif
+
+if !empty(glob('~/.vim/plugged/dracula'))
+  set termguicolors
+  let g:dracula_colorterm = 0
+  let g:dracula_italic = 0
+  autocmd ColorScheme * highlight Visual term=reverse ctermbg=242 guibg=#6c6c6c
+  colorscheme dracula
+  let g:airline_theme = 'dracula'
+else
+  color dracula_old
+  let g:airline_theme = 'dracula_old'
+endif
+

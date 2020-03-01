@@ -18,7 +18,7 @@ if exists("syntax_on")
   syntax reset
 endif
 
-let g:colors_name = "dracula"
+let g:colors_name = "dracula_old"
 
 hi Cursor ctermfg=17 ctermbg=231 cterm=NONE guifg=#282a36 guibg=#f8f8f0 gui=NONE
 hi Visual ctermfg=NONE ctermbg=241 cterm=NONE guifg=NONE guibg=#44475a gui=NONE

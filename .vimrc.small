@@ -48,7 +48,7 @@ set ambiwidth=double    " 全角記号を正確に表示
 "###################
 
 syntax on
-color dracula
+" color dracula
 
 "#########################
 "タブ/インデント設定

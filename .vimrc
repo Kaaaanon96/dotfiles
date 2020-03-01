@@ -6,12 +6,18 @@ set encoding=utf-8
 scriptencoding utf-8
 set fileencoding=utf-8
 
-"##################################
-"ファイルタイプ・プラグイン無効化
-"##################################
+"###############
+"function
+"###############
 
-filetype off
-filetype plugin indent off
+function! s:source_rc(rc_file_name)
+    let rc_file = expand('~/.vim/rc/' . a:rc_file_name)
+    if filereadable(rc_file)
+        execute 'source' rc_file
+    endif
+endfunction
+
+" call s:source_rc('benchscript.rc.vim')
 
 "###############
 "ファイル設定
@@ -46,15 +52,13 @@ set ambiwidth=double    " 全角記号を正確に表示
 "カラースキーム
 "###################
 
-set redrawtime=4000
-syntax on
-color dracula
+" set redrawtime=4000
 
 "#########################
 "タブ/インデント設定
 "#########################
 
-source ~/dotfiles/.vimrc.indent " 外部ファイル読み込み
+call s:source_rc('indent.rc.vim')
 
 "################
 "検索設定
@@ -150,126 +154,10 @@ inoremap <C-e> <C-o>$
 " terminal
 tnoremap <silent><C-w><Esc> <C-w><S-n>:set nonumber<CR>
 
-
-"#########################
-"util script
-"#########################
-
-source ~/dotfiles/.vimrc.script " 外部ファイル読み込み
-
 "############################
-"dein設定
+" plugin
 "############################
 
-" プラグインがインストールされるディレクトリ
-let s:dein_dir = expand('~/.cache/dein')
-" dein.vim 本体
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+call s:source_rc('plug.rc.vim')
 
-" dein.vim がなければ github から落としてくる
-if &runtimepath !~# '/dein.vim'
-  if !isdirectory(s:dein_repo_dir)
-    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
-  endif
-  execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
-endif
-
-" 設定開始
-if dein#load_state(s:dein_dir)
-  call dein#begin(s:dein_dir)
-
-  " プラグインリストを収めた TOML ファイル
-  " 予め TOML ファイルを用意しておく
-  let g:rc_dir    = expand('~/.vim/rc')
-  let s:toml      = g:rc_dir . '/dein.toml'
-  let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
-
-  " TOML を読み込み、キャッシュしておく
-  call dein#load_toml(s:toml,       {'lazy': 0})
-  call dein#load_toml(s:lazy_toml,  {'lazy': 1})
-
-  " 設定完了
-  call dein#end()
-  call dein#save_state()
-endif
-
-" もし、未インストールのものがあったらインストール
-" if dein#check_install()
-"   call dein#install()
-" endif
-
-"#################################
-"インデント・プラグイン on
-"#################################
-
-filetype plugin indent on
-
-"################################
-"ぷらぎん関係の設定
-"tomlに移行する
-"################################
-
-" airline の設定
-let g:airline_theme = 'dracula'
-let g:airline#extensions#tabline#enabled  = 1
-let g:airline#extensions#branch#enavled   = 1
-
-" vim-indent-guides
-"let g:indent_guides_guide_size  = 1
-let g:indent_guides_start_level = 3
-let g:indent_guides_auto_colors = 0
-autocmd MyAutoCmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#1e1f28 ctermbg=235
-autocmd MyAutoCmd Vimenter,Colorscheme * :hi IndentGuidesOdd guibg=#232530 ctermbg=237
-let g:indent_guides_color_change_percent = 1
-let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
-
-" NERDTree
-let NERDTreeShowHidden = 1
-nnoremap <silent><C-e> :NERDTreeToggle<CR>
-
-autocmd MyAutoCmd StdinReadPre * let s:std_in=1
-autocmd MyAutoCmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-" tagbar
-let g:tagbar_sort = 0
-nnoremap <silent><Space><C-e> :TagbarToggle<CR>
-
-" markdown
-autocmd MyAutoCmd BufRead,BufNewFile *.md  :set filetype=markdown
-let g:markdown_enable_insert_mode_leader_mappings = 1 
-let g:markdown_enable_spell_checking = 0
-
-" vim-asterisk
-map *  <Plug>(asterisk-z*)<Plug>(is-nohl-1)
-map g* <Plug>(asterisk-gz*)<Plug>(is-nohl-1)
-map #  <Plug>(asterisk-z#)<Plug>(is-nohl-1)
-map g# <Plug>(asterisk-gz#)<Plug>(is-nohl-1)
-
-" vim-over
-nnoremap <silent> <Space>o :OverCommandLine<CR>%s//g<Left><Left>
-vnoremap <silent> <Space>o :OverCommandLine<CR>s//g<Left><Left>
-nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
-
-" vim-quickrun
-" 成功したらbuffer,失敗したらquickfix
-let g:quickrun_config = {
-      \   "_" : {
-      \         'runner'    : 'job',
-      \         'outputter' : 'error',
-      \         'outputter/error/success' : 'buffer',
-      \         'outputter/error/error'   : 'quickfix',
-      \         'outputter/buffer/split'  : 'botright 10sp',
-      \         'outputter/buffer/into': 1,
-      \         'outputter/buffer/close_on_empty' : 1,
-      \   },
-      \}
-
-nnoremap <Leader>r :QuickRun<Cr>
-vnoremap <Leader>r :QuickRun -mode v<CR>
-
-" vimproc
-let g:vimproc_dll_path = '~/.cache/dein/repos/github.com/Shougo/vimproc.vim/lib/vimproc_mac.so'
-
-" editconfig
-let g:EditorConfig_exclude_patterns = ['fugitive：//.*']
 

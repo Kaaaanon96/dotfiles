@@ -37,10 +37,32 @@ source /usr/local/etc/bash_completion.d/git-prompt.sh
 GIT_PS1_SHOWDIRTYSTATE=true
 export PS1="\u@\h:\W\$(__git_ps1)$ "
 
-
 # -----------------------------------
 # phpbrew
 # -----------------------------------
 
 source $HOME/.phpbrew/bashrc
+
+# -----------------------------------
+# bat
+# -----------------------------------
+export BAT_THEME="TwoDark"
+
+# -----------------------------------
+# fzf
+# -----------------------------------
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore'
+export FZF_CTRL_T_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=header,grid --line-range :100 {}"'
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+--reverse
+--height=20
+--bind ctrl-n:page-down,ctrl-p:page-up
+--color=dark
+--color=fg:-1,bg:-1,hl:#5fff87,fg+:-1,bg+:-1,hl+:#ffaf5f
+--color=info:#af87ff,prompt:#5fff87,pointer:#ff87d7,marker:#ff87d7,spinner:#ff87d7
+'
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+
 
