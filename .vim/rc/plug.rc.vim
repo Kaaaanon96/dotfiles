@@ -75,15 +75,15 @@ if !empty(glob(s:plugvim))
   command! -bang -nargs=? -complete=dir Files
         \ call fzf#vim#files(
         \ <q-args>,
-        \ <bang>0 ? fzf#vim#with_preview({'options': '--reverse', 'source': 'rg --files --hidden --follow --no-ignore --glob "!.git/*"', 'down': 20}, 'up:60%')
-        \ : fzf#vim#with_preview({'options': '--reverse', 'source': 'rg --files --hidden --follow --no-ignore --glob "!.git/*"', 'down': 20}, 'right:50%:hidden', '?'),
+        \ <bang>0 ? fzf#vim#with_preview({'options': '--reverse', 'source': 'rg --files --hidden --follow --no-ignore --glob "!.git/*"', 'down': 40}, 'up:60%')
+        \ : fzf#vim#with_preview({'options': '--reverse', 'source': 'rg --files --hidden --follow --no-ignore --glob "!.git/*"', 'down': 15}, 'right:50%:hidden', '?'),
         \ <bang>0)
 
   command! -bang -nargs=* Rg
         \ call fzf#vim#grep(
         \ 'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
-        \ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..', 'down': 20}, 'up:60%')
-        \ : fzf#vim#with_preview({'options': '--reverse --delimiter : --nth 4..', 'down': 20}, 'right:50%:hidden', '?'),
+        \ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..', 'down': 15}, 'up:60%')
+        \ : fzf#vim#with_preview({'options': '--reverse --delimiter : --nth 4..', 'down': 15}, 'right:50%:hidden', '?'),
         \ <bang>0)
 
   nnoremap <C-u><C-t> :<C-u><CR>
@@ -118,26 +118,40 @@ if !empty(glob(s:plugvim))
   Plug 'mattn/vim-lsp-settings'
   let g:lsp_fold_enabled = 0
   let g:lsp_diagnostics_enabled = 1
-  let g:lsp_signs_enabled = 1
   let g:lsp_diagnostics_echo_cursor = 1
+
   let g:lsp_settings={
     \ 'go': {'cmd': ['gopls']},
-    \ 'ruby': {'cmd': ['solargraph', 'stdio']},
     \ 'php': {'cmd': ['intelephense', '--stdio']},
   \}
+  let g:asyncomplete_auto_popup = 1
+  let g:asyncomplete_popup_delay = 200
 
-  nnoremap <leader>ld :<C-u>vsp<CR>:<C-u>LspDefinition<CR>
-  nnoremap <leader>lr :<C-u>LspRename<CR>
-  nnoremap <leader>lf :<C-u>LspDocumentFormat<CR>
-  vnoremap <leader>lf :<C-u>LspDocumentRangeFormat<CR>
-  nnoremap <leader>lt :<C-u>vsp<CR>:<C-u>LspTypeDefinition<CR>
-  nnoremap <leader>lx :<C-u>vsp<CR>:<C-u>LspReferences<CR>
-  nnoremap <leader>lh :<C-u>LspHover<CR>
-  nnoremap <leader>ls :<C-u>LspDocumentSymbol<CR>
-  nnoremap <leader>lws :<C-u>LspWorkspaceSymbol<CR>
-  nnoremap <leader>ln :<C-u>LspNextDiagnostic<CR>
-  nnoremap <leader>lp :<C-u>LspPreviousDiagnostic<CR>
-  nnoremap <leader>la :<C-u>LspCodeAction<CR>
+  function! s:configure_lsp() abort
+    setlocal omnifunc=lsp#complete
+
+    nnoremap <leader>ld :<C-u>vsp<CR>:<C-u>LspDefinition<CR>
+    nnoremap <leader>lr :<C-u>LspRename<CR>
+    nnoremap <leader>lf :<C-u>LspDocumentFormat<CR>
+    vnoremap <leader>lf :<C-u>LspDocumentRangeFormat<CR>
+    nnoremap <leader>lt :<C-u>vsp<CR>:<C-u>LspTypeDefinition<CR>
+    nnoremap <leader>lx :<C-u>vsp<CR>:<C-u>LspReferences<CR>
+    nnoremap <leader>lh :<C-u>LspHover<CR>
+    nnoremap <leader>ls :<C-u>LspDocumentSymbol<CR>
+    nnoremap <leader>lws :<C-u>LspWorkspaceSymbol<CR>
+    nnoremap <leader>ln :<C-u>LspNextDiagnostic<CR>
+    nnoremap <leader>lp :<C-u>LspPreviousDiagnostic<CR>
+    nnoremap <leader>la :<C-u>LspCodeAction<CR>
+
+    if &filetype == 'ruby'
+      let g:lsp_diagnostics_enabled = 0
+    endif
+  endfunction
+
+  augroup MyLsp
+    autocmd!
+    autocmd User lsp_buffer_enabled call s:configure_lsp()
+  augroup END
 
   "################################
   " language
@@ -202,7 +216,7 @@ if !empty(glob('~/.vim/plugged/dracula'))
   set termguicolors
   let g:dracula_colorterm = 0
   let g:dracula_italic = 0
-  autocmd ColorScheme * highlight Visual term=reverse ctermbg=242 guibg=#6c6c6c
+  autocmd MyAutoCmd ColorScheme * highlight Visual term=reverse ctermbg=242 guibg=#6c6c6c
   colorscheme dracula
   let g:airline_theme = 'dracula'
 else
