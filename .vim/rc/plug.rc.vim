@@ -120,9 +120,22 @@ if !empty(glob(s:plugvim))
   let g:lsp_diagnostics_enabled = 1
   let g:lsp_diagnostics_echo_cursor = 1
 
+  " ドキュメンから持ってきたやつ
+  let intelephense_stubs_default = [
+        \ "apache", "bcmath", "bz2", "calendar", "com_dotnet", "Core", "ctype", "curl",
+        \ "date", "dba", "dom", "enchant", "exif", "FFI", "fileinfo", "filter", "fpm",
+        \ "ftp", "gd", "gettext", "gmp", "hash", "iconv", "imap", "intl", "json", "ldap",
+        \ "libxml", "mbstring", "meta", "mysqli", "oci8", "odbc", "openssl", "pcntl",
+        \ "pcre", "PDO", "pdo_ibm", "pdo_mysql", "pdo_pgsql", "pdo_sqlite", "pgsql",
+        \ "Phar", "posix", "pspell", "readline", "Reflection", "session", "shmop",
+        \ "SimpleXML", "snmp", "soap", "sockets", "sodium", "SPL", "sqlite3", "standard",
+        \ "superglobals", "sysvmsg", "sysvsem", "sysvshm", "tidy", "tokenizer", "xml",
+        \ "xmlreader", "xmlrpc", "xmlwriter", "xsl", "Zend OPcache", "zip", "zlib"
+        \ ]
+  call add(intelephense_stubs_default, "redis")
+
   let g:lsp_settings={
-    \ 'go': {'cmd': ['gopls']},
-    \ 'php': {'cmd': ['intelephense', '--stdio']},
+    \ 'intelephense': {'workspace_config': {'intelephense': {'stubs': intelephense_stubs_default}}},
   \}
   let g:asyncomplete_auto_popup = 1
   let g:asyncomplete_popup_delay = 200
