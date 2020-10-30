@@ -10,6 +10,11 @@ export EDITOR=vim
 HISTSIZE=10000
 HISTTIMEFORMAT='%Y/%m/%d %H:%M:%S'
 
+#--------------------------------------
+# 自作スクリプト
+#--------------------------------------
+export PATH="$HOME/dotfiles/bin:$PATH"
+
 # -------------------------------------
 # エイリアス
 # -------------------------------------
@@ -37,11 +42,6 @@ source /usr/local/etc/bash_completion.d/git-prompt.sh
 GIT_PS1_SHOWDIRTYSTATE=true
 export PS1="\u@\h:\W\$(__git_ps1)$ "
 
-# -----------------------------------
-# phpbrew
-# -----------------------------------
-
-source $HOME/.phpbrew/bashrc
 
 # -----------------------------------
 # bat

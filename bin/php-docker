@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+  echo "引数を1つ以上指定(php-docker filepath option)" 1>&2
+  exit 1
+fi
+
+filepath=$1;
+
+if [ ! -f ${filepath} ]; then
+  echo "第1引数にはファイルパスを入力" 1>&2
+  exit 1
+fi
+
+if [ $(uname) = 'Darwin' ] && [[ $filepath =~ ^/var/ ]]; then
+    filepath="/private${filepath}"
+fi
+
+
+readonly CONTAINER_NAME="php-runner"
+docker ps -a -q --filter name="${CONTAINER_NAME}" | grep -q . && docker stop "${CONTAINER_NAME}" >> /dev/null && docker rm -fv "${CONTAINER_NAME}" >> /dev/null
+docker run -i --rm --name ${CONTAINER_NAME} -v $(dirname ${filepath}):/usr/src/myapp -w /usr/src/myapp php:5.6-cli php $(basename ${filepath}) ${@:2}
+

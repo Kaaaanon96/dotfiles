@@ -217,6 +217,17 @@ if !empty(glob(s:plugvim))
   "################################
   Plug 'thinca/vim-quickrun'
 
+  let g:quickrun_config = {
+  \   '_': {
+  \     'runner': 'job'
+  \   },
+  \   'php': {
+  \     'command' : 'php-docker',
+  \     'cmdopt'  : '',
+  \     'exec'    : '%c %s'
+  \   }
+  \ }
+
   "################################
   " Showtime
   "################################
