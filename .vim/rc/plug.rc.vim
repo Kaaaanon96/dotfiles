@@ -72,31 +72,42 @@ if !empty(glob(s:plugvim))
     \ 'ctrl-i': 'split',
     \ 'ctrl-v': 'vsplit' }
 
-  command! -bang -nargs=? -complete=dir Files
+  command! -bang -nargs=? -complete=dir RgFiles
         \ call fzf#vim#files(
         \ <q-args>,
-        \ <bang>0 ? fzf#vim#with_preview({'options': '--reverse', 'source': 'rg --files --hidden --follow --no-ignore --glob "!.git/*"', 'down': 40}, 'up:60%')
-        \ : fzf#vim#with_preview({'options': '--reverse', 'source': 'rg --files --hidden --follow --no-ignore --glob "!.git/*"', 'down': 15}, 'right:50%:hidden', '?'),
+        \ fzf#vim#with_preview({'options': '--reverse', 'source': 'rg --files --hidden --follow --no-ignore --glob "!.git/*"'}),
         \ <bang>0)
 
   command! -bang -nargs=* Rg
         \ call fzf#vim#grep(
-        \ 'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
-        \ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..', 'down': 15}, 'up:60%')
-        \ : fzf#vim#with_preview({'options': '--reverse --delimiter : --nth 4..', 'down': 15}, 'right:50%:hidden', '?'),
+        \ 'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>),
+        \ 1,
+        \ fzf#vim#with_preview({'options': '--reverse --delimiter : --nth 4..'}),
         \ <bang>0)
 
+  command! -bang -nargs=* Tags
+        \ call fzf#vim#tags(
+        \ expand('<cword>'),
+        \ fzf#vim#with_preview({ "placeholder": "--tag {2}:{-1}:{3}" }),
+        \ <bang>0)
+
+  command! -bang -nargs=* BTags
+        \ call fzf#vim#buffer_tags(
+        \ expand('<cword>'),
+        \ fzf#vim#with_preview({ "placeholder": "{2}:{3}" }),
+        \ <bang>0)
+
+
   nnoremap <C-u><C-t> :<C-u><CR>
-  nnoremap <C-u><C-p> :<C-u>Files<CR>
+  nnoremap <C-u><C-p> :<C-u>RgFiles<CR>
   nnoremap <C-u><C-b> :<C-u>FzfBuffers<CR>
   nnoremap <C-u><C-g> :<C-u>Rg<CR>
   nnoremap <C-u><C-j> :<C-u>FzfBLines<CR>
   nnoremap <C-u><C-h> :<C-u>FzfHistory<CR>
   nnoremap <C-u><C-r> :<C-u>FzfHistory:<CR>
-  " nnoremap <C-u><C-r> :<C-u><C-u>Denite -resume<CR>
-  " nnoremap <C-u><C-n> :<C-u><C-u>Denite -resume -cursor-pos=+1 -immediately<CR>
-  " nnoremap <C-u><C-o> :<C-u><C-u>Denite outline -highlight-mode-insert=Search -post-action=open -split=vertical -winwidth=40<CR>
-  nnoremap <expr> <C-u><C-]> &filetype == 'help' ? "g\<C-]>" : ":call fzf#vim#tags(expand('<cword>'), {'down': 10})\<CR>"
+  nnoremap <C-u><C-s> :<C-u>FzfCommands<CR>
+  nnoremap <expr> <C-u><C-]> &filetype == 'help' ? "g\<C-]>" : ":<C-u>Tags<CR>"
+  nnoremap <expr> <C-u><C-b><C-]> &filetype == 'help' ? "g\<C-]>" : ":<C-u>BTags<CR>"
 
   inoremap <expr> <C-x><C-u><C-f> fzf#vim#complete#path('rg --files --hidden --no-ignore', {'options': '--reverse', 'down': 10})
 
@@ -119,6 +130,7 @@ if !empty(glob(s:plugvim))
   let g:lsp_fold_enabled = 0
   let g:lsp_diagnostics_enabled = 1
   let g:lsp_diagnostics_echo_cursor = 1
+  let g:lsp_text_edit_enabled = 1
 
   " ドキュメンから持ってきたやつ
   let intelephense_stubs_default = [
@@ -134,14 +146,32 @@ if !empty(glob(s:plugvim))
         \ ]
   call add(intelephense_stubs_default, "redis")
 
-  let g:lsp_settings={
-    \ 'intelephense': {'workspace_config': {'intelephense': {'stubs': intelephense_stubs_default}}},
-  \}
+  let g:lsp_settings = {}
+  let g:lsp_settings['intelephense'] = {'workspace_config': {'intelephense': {'stubs': intelephense_stubs_default}}}
+  let g:lsp_settings['solargraph'] = {'initialization_options': {'diagnostics': v:true}}
+  let g:lsp_settings['gopls'] = {
+    \  'workspace_config': {
+    \    'usePlaceholders': v:true,
+    \    'analyses': {
+    \      'fillstruct': v:true,
+    \    },
+    \  },
+    \  'initialization_options': {
+    \    'usePlaceholders': v:true,
+    \    'analyses': {
+    \      'fillstruct': v:true,
+    \    },
+    \  },
+    \}
+
   let g:asyncomplete_auto_popup = 1
   let g:asyncomplete_popup_delay = 200
 
+
   function! s:configure_lsp() abort
     setlocal omnifunc=lsp#complete
+
+    inoremap <expr><cr> pumvisible() ? "\<C-y>" : "\<cr>"
 
     nnoremap <leader>ld :<C-u>vsp<CR>:<C-u>LspDefinition<CR>
     nnoremap <leader>lr :<C-u>LspRename<CR>
@@ -156,9 +186,6 @@ if !empty(glob(s:plugvim))
     nnoremap <leader>lp :<C-u>LspPreviousDiagnostic<CR>
     nnoremap <leader>la :<C-u>LspCodeAction<CR>
 
-    if &filetype == 'ruby'
-      let g:lsp_diagnostics_enabled = 0
-    endif
   endfunction
 
   augroup MyLsp
