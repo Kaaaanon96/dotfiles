@@ -122,11 +122,15 @@ if !empty(glob(s:plugvim))
   "################################
   " Complement
   "################################
-  Plug 'prabirshrestha/async.vim'
-  Plug 'prabirshrestha/vim-lsp'
   Plug 'prabirshrestha/asyncomplete.vim'
   Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+  Plug 'prabirshrestha/vim-lsp'
   Plug 'mattn/vim-lsp-settings'
+
+  Plug 'hrsh7th/vim-vsnip'
+  Plug 'hrsh7th/vim-vsnip-integ'
+
   let g:lsp_fold_enabled = 0
   let g:lsp_diagnostics_enabled = 1
   let g:lsp_diagnostics_echo_cursor = 1
@@ -151,13 +155,14 @@ if !empty(glob(s:plugvim))
   let g:lsp_settings['solargraph'] = {'initialization_options': {'diagnostics': v:true}}
   let g:lsp_settings['gopls'] = {
     \  'workspace_config': {
-    \    'usePlaceholders': v:true,
+    \    'completeUnimported': v:true,
     \    'analyses': {
     \      'fillstruct': v:true,
     \    },
     \  },
     \  'initialization_options': {
     \    'usePlaceholders': v:true,
+    \    'staticcheck': v:true,
     \    'analyses': {
     \      'fillstruct': v:true,
     \    },
@@ -165,13 +170,18 @@ if !empty(glob(s:plugvim))
     \}
 
   let g:asyncomplete_auto_popup = 1
+  let g:asyncomplete_auto_completeopt = 1
   let g:asyncomplete_popup_delay = 200
+
+  imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+  imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+  imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 
 
   function! s:configure_lsp() abort
     setlocal omnifunc=lsp#complete
 
-    inoremap <expr><cr> pumvisible() ? "\<C-y>" : "\<cr>"
+    inoremap <expr> <C-y> pumvisible() ? asyncomplete#close_popup() : "\<C-y>"
 
     nnoremap <leader>ld :<C-u>vsp<CR>:<C-u>LspDefinition<CR>
     nnoremap <leader>lr :<C-u>LspRename<CR>
@@ -185,6 +195,7 @@ if !empty(glob(s:plugvim))
     nnoremap <leader>ln :<C-u>LspNextDiagnostic<CR>
     nnoremap <leader>lp :<C-u>LspPreviousDiagnostic<CR>
     nnoremap <leader>la :<C-u>LspCodeAction<CR>
+    nnoremap <leader>lcl :<C-u>LspCodeLens<CR>
 
   endfunction
 
@@ -196,6 +207,8 @@ if !empty(glob(s:plugvim))
   "################################
   " language
   "################################
+  Plug 'mattn/vim-gomod'
+
   Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
   let g:markdown_enable_insert_mode_leader_mappings = 1 
   let g:markdown_enable_spell_checking = 0
