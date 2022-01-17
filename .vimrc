@@ -86,6 +86,12 @@ augroup MyAutoCmd
   autocmd! *
 augroup END
 
+"#################################
+"シンタックス追加
+"#################################
+
+autocmd MyAutoCmd BufNewFile,BufRead *.ruby set filetype=ruby
+
 "################
 "タグ周り
 "################

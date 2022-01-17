@@ -10,6 +10,9 @@ export EDITOR=vim
 HISTSIZE=10000
 HISTTIMEFORMAT='%Y/%m/%d %H:%M:%S'
 
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+shopt -u histappend
+
 #--------------------------------------
 # 自作スクリプト
 #--------------------------------------
