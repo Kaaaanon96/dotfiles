@@ -3,5 +3,8 @@
 *~
 .DS_Store
 
-.vim/autoload/plug.vim
-.vim/plugged/
+/.vim/autoload/plug.vim
+/.vim/plugged/
+
+/.bash_conf/*
+!/.bash_conf/.keep

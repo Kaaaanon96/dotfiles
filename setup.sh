@@ -3,6 +3,7 @@
 DOT_FILES=( 
   .bash_profile 
   .bashrc 
+  .bash_conf
   .gnuplot 
   .vimrc 
   .vim

@@ -30,7 +30,6 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias df='df -h'
 alias relogin='exec -l $SHELL'
-alias brew="env PATH=${PATH//$(pyenv root)\/shims:/} brew"
 alias ctags="`brew --prefix`/bin/ctags"
 alias phptags="ctags -R --languages=PHP -f ./php.tags "
 alias rubytags="ctags -R --languages=RUBY --exclude='*.js' -f ./ruby.tags"
@@ -84,6 +83,9 @@ if [ -f ~/.fzf.bash ]; then
     }
 fi
 
+#--------------------------------------
+# macのzsh警告を出さない
+#--------------------------------------
 
-
+export BASH_SILENCE_DEPRECATION_WARNING=1
 
