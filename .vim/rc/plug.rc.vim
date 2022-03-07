@@ -184,6 +184,7 @@ if !empty(glob(s:plugvim))
     inoremap <expr> <C-y> pumvisible() ? asyncomplete#close_popup() : "\<C-y>"
 
     nnoremap <leader>ld :<C-u>vsp<CR>:<C-u>LspDefinition<CR>
+    nnoremap <leader>l] :<C-u>LspDefinition<CR>
     nnoremap <leader>lr :<C-u>LspRename<CR>
     nnoremap <leader>lf :<C-u>LspDocumentFormat<CR>
     vnoremap <leader>lf :<C-u>LspDocumentRangeFormat<CR>

@@ -28,6 +28,7 @@ do
 done
 
 git config --global core.excludesfile ~/.gitignore_global
+git config --global alias.tree 'log --graph --all --format="%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s"'
 
 echo "終わり"
 
