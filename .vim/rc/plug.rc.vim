@@ -126,7 +126,7 @@ if !empty(glob(s:plugvim))
   Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
   Plug 'prabirshrestha/vim-lsp'
-  Plug 'mattn/vim-lsp-settings'
+  Plug 'Kanon159/vim-lsp-settings', {'branch': 'solargraph-docker'}
 
   Plug 'hrsh7th/vim-vsnip'
   Plug 'hrsh7th/vim-vsnip-integ'
