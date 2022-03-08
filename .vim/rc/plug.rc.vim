@@ -169,6 +169,18 @@ if !empty(glob(s:plugvim))
     \  },
     \}
 
+  if !empty(glob('./.vim-lsp-settings/settings.json'))
+    function! s:might_setting_solargraph_tcp() abort
+      let l:lsp_local_conf = json_decode(join(readfile('./.vim-lsp-settings/settings.json'), "\n"))
+      let l:solargraph_tcp_conf = get(l:lsp_local_conf, 'solargraph-docker', '')
+      if !empty(l:solargraph_tcp_conf)
+        let g:lsp_settings_filetype_ruby = 'solargraph-docker'
+      endif
+    endfunction
+
+    call s:might_setting_solargraph_tcp()
+  endif
+
   let g:asyncomplete_auto_popup = 1
   let g:asyncomplete_auto_completeopt = 1
   let g:asyncomplete_popup_delay = 200
