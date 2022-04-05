@@ -27,13 +27,76 @@ if !empty(glob(s:plugvim))
   "################################
   " File tree
   "################################
-  Plug 'scrooloose/nerdtree'
-  Plug 'Xuyuanp/nerdtree-git-plugin'
-  let NERDTreeShowHidden = 1
-  nnoremap <silent><C-e> :NERDTreeToggle<CR>
+  Plug 'lambdalisue/fern.vim'
+  Plug 'lambdalisue/fern-git-status.vim'
+  let g:fern#disable_default_mappings = 1
+  let g:fern#default_hidden = 1
 
-  autocmd MyAutoCmd StdinReadPre * let s:std_in=1
-  autocmd MyAutoCmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+  nnoremap <silent><C-e> :<C-u>:Fern . -drawer<CR>
+  nnoremap <leader>f :<C-u>:Fern . -reveal=%<CR>
+
+  function! s:configure_fern() abort
+    nmap <buffer><nowait> <C-c> <Plug>(fern-action-cancel)
+    nmap <buffer><nowait> <C-l> <Plug>(fern-action-redraw)
+
+    nmap <buffer><expr>
+          \ <Plug>(my-fern-toggle-or-open)
+          \ fern#smart#leaf(
+          \   "\<Plug>(fern-action-open)",
+          \   "\<Plug>(fern-action-expand)",
+          \   "\<Plug>(fern-action-collapse)",
+          \ )
+    nmap <buffer><expr>
+          \ <Plug>(my-fern-expand-or-enter)
+          \ fern#smart#drawer(
+          \   "\<Plug>(fern-action-open-or-expand)",
+          \   "\<Plug>(fern-action-open-or-enter)",
+          \ )
+    nmap <buffer><expr>
+          \ <Plug>(my-fern-collapse-or-leave)
+          \ fern#smart#drawer(
+          \   "\<Plug>(fern-action-collapse)",
+          \   "\<Plug>(fern-action-leave)",
+          \ )
+
+    nmap <buffer><nowait> <C-m> <plug>(my-fern-toggle-or-open)
+    nmap <buffer><nowait> l <Plug>(my-fern-expand-or-enter)
+    nmap <buffer><nowait> h <plug>(my-fern-collapse-or-leave)
+
+    nmap <buffer> o <Plug>(fern-action-open:select)
+    nmap <buffer> i <Plug>(fern-action-open:split)
+    nmap <buffer> s <Plug>(fern-action-open:vsplit)
+
+    " nmap <buffer> go <Plug>(fern-action-open:edit)<C-w>p
+    " nmap <buffer> gi <Plug>(fern-action-open:split)<C-w>p
+    " nmap <buffer> gs <Plug>(fern-action-open:vsplit)<C-w>p
+
+    nmap <buffer> mo <Plug>(fern-action-open:system)
+    nmap <buffer> ma <Plug>(fern-action-new-path)
+    nmap <buffer> mk <Plug>(fern-action-new-dir)
+    nmap <buffer> mc <Plug>(fern-action-copy)
+    nmap <buffer> mm <Plug>(fern-action-move)
+    nmap <buffer> mr <Plug>(fern-action-rename)
+    nmap <buffer> md <Plug>(fern-action-trash)
+    nmap <buffer> mp <Plug>(fern-action-clipboard-copy)
+
+    nmap <buffer><expr>
+          \ <Plug>(my-fern-quit-or-nop)
+          \ fern#smart#drawer(
+          \   "\:<C-u>quit<CR>",
+          \   "",
+          \ )
+
+    nmap <buffer> q <Plug>(my-fern-quit-or-nop)
+
+    highlight link FernGitStatusIndex DraculaGreenBold
+    highlight link FernGitStatusWorktree DraculaRed
+  endfunction
+
+  augroup MyFern
+    autocmd!
+    autocmd FileType fern call s:configure_fern()
+  augroup END
 
   "################################
   " Git
@@ -111,8 +174,6 @@ if !empty(glob(s:plugvim))
         \ {'sink*': {lines -> s:delete_buf_sink(lines)}},
         \ <bang>0)
 
-
-  nnoremap <C-u><C-t> :<C-u><CR>
   nnoremap <C-u><C-p> :<C-u>RgFiles<CR>
   nnoremap <C-u><C-b> :<C-u>FzfBuffers<CR>
   nnoremap <C-u><C-g> :<C-u>Rg<CR>
