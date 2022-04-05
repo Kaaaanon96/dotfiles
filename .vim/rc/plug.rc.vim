@@ -127,6 +127,7 @@ if !empty(glob(s:plugvim))
 
   Plug 'prabirshrestha/vim-lsp'
   Plug 'Kanon159/vim-lsp-settings', {'branch': 'solargraph-docker'}
+  " Plug 'mattn/vim-lsp-settings'
 
   Plug 'hrsh7th/vim-vsnip'
   Plug 'hrsh7th/vim-vsnip-integ'
@@ -151,7 +152,29 @@ if !empty(glob(s:plugvim))
   call add(intelephense_stubs_default, "redis")
 
   let g:lsp_settings = {}
-  let g:lsp_settings['intelephense'] = {'workspace_config': {'intelephense': {'stubs': intelephense_stubs_default}}}
+  let g:lsp_settings['intelephense'] = {
+    \  'workspace_config': {
+    \    'intelephense': {
+    \      'maxMemory': 1024,
+    \      'stubs': intelephense_stubs_default,
+    \      'files': {
+    \        'maxSize': 1000000,
+    \      },
+    \      'completion': {
+    \        'insertUseDeclaration': v:true,
+    \        'fullyQualifyGlobalConstantsAndFunctions': v:false,
+    \        'triggerParameterHints': v:true,
+    \        'maxItems': 100,
+    \      },
+    \      'diagnostics': {
+    \        'run': 'onSave',
+    \      },
+    \      'format': {
+    \        'enable': v:true,
+    \      },
+    \    },
+    \  },
+    \}
   let g:lsp_settings['solargraph'] = {'initialization_options': {'diagnostics': v:true}}
   let g:lsp_settings['gopls'] = {
     \  'workspace_config': {
