@@ -18,6 +18,7 @@ if !empty(glob(s:plugvim))
 
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
+
   let g:airline#extensions#tabline#enabled  = 1
   let g:airline#extensions#branch#enavled   = 1
 
@@ -97,6 +98,19 @@ if !empty(glob(s:plugvim))
         \ fzf#vim#with_preview({ "placeholder": "{2}:{3}" }),
         \ <bang>0)
 
+  function! s:delete_buf_sink(lines)
+    if len(a:lines) < 2
+      return
+    endif
+    let b = matchstr(a:lines[1], '\[\zs[0-9]*\ze\]')
+    call feedkeys(':bdelete '.b)
+  endfunction
+
+  command! -bang -nargs=* FzfDeleteBuffer
+        \ call fzf#vim#buffers(
+        \ {'sink*': {lines -> s:delete_buf_sink(lines)}},
+        \ <bang>0)
+
 
   nnoremap <C-u><C-t> :<C-u><CR>
   nnoremap <C-u><C-p> :<C-u>RgFiles<CR>
@@ -106,12 +120,12 @@ if !empty(glob(s:plugvim))
   nnoremap <C-u><C-h> :<C-u>FzfHistory<CR>
   nnoremap <C-u><C-r> :<C-u>FzfHistory:<CR>
   nnoremap <C-u><C-s> :<C-u>FzfCommands<CR>
+  nnoremap <C-u><C-d><C-b> :<C-u>FzfDeleteBuffer<CR>
+
   nnoremap <expr> <C-u><C-]> &filetype == 'help' ? "g\<C-]>" : ":<C-u>Tags<CR>"
-  nnoremap <expr> <C-u><C-b><C-]> &filetype == 'help' ? "g\<C-]>" : ":<C-u>BTags<CR>"
+  nnoremap <expr> <C-u><C-]><C-b> &filetype == 'help' ? "g\<C-]>" : ":<C-u>BTags<CR>"
 
   inoremap <expr> <C-x><C-u><C-f> fzf#vim#complete#path('rg --files --hidden --no-ignore', {'options': '--reverse', 'down': 10})
-
-  " tnoremap <C-u><C-y> <C-w>:Denite register<CR>
 
   "################################
   " style
