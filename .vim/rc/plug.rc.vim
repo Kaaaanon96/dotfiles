@@ -136,26 +136,26 @@ if !empty(glob(s:plugvim))
     \ 'ctrl-i': 'split',
     \ 'ctrl-v': 'vsplit' }
 
-  command! -bang -nargs=? -complete=dir RgFiles
+  command! -bang -nargs=? -complete=dir MyFzfRgFiles
         \ call fzf#vim#files(
         \ <q-args>,
         \ fzf#vim#with_preview({'options': '--reverse', 'source': 'rg --files --hidden --follow --no-ignore --glob "!.git/*"'}),
         \ <bang>0)
 
-  command! -bang -nargs=* Rg
+  command! -bang -nargs=* MyFzfRg
         \ call fzf#vim#grep(
         \ 'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>),
         \ 1,
         \ fzf#vim#with_preview({'options': '--reverse --delimiter : --nth 4..'}),
         \ <bang>0)
 
-  command! -bang -nargs=* Tags
+  command! -bang -nargs=* MyFzfTags
         \ call fzf#vim#tags(
         \ expand('<cword>'),
         \ fzf#vim#with_preview({ "placeholder": "--tag {2}:{-1}:{3}" }),
         \ <bang>0)
 
-  command! -bang -nargs=* BTags
+  command! -bang -nargs=* MyFzfBTags
         \ call fzf#vim#buffer_tags(
         \ expand('<cword>'),
         \ fzf#vim#with_preview({ "placeholder": "{2}:{3}" }),
@@ -169,23 +169,24 @@ if !empty(glob(s:plugvim))
     call feedkeys(':bdelete '.b)
   endfunction
 
-  command! -bang -nargs=* FzfDeleteBuffer
+  command! -bang -nargs=* MyFzfDeleteBuffer
         \ call fzf#vim#buffers(
         \ {'sink*': {lines -> s:delete_buf_sink(lines)}},
         \ <bang>0)
 
-  nnoremap <C-u><C-p> :<C-u>RgFiles<CR>
+  nnoremap <C-u><C-i> :<C-u>FzfGFiles?<CR>
+  nnoremap <C-u><C-p> :<C-u>MyFzfRgFiles<CR>
   nnoremap <C-u><C-b> :<C-u>FzfBuffers<CR>
-  nnoremap <C-u><C-g> :<C-u>Rg<CR>
+  nnoremap <C-u><C-g> :<C-u>MyFzfRg<CR>
   nnoremap <C-u><C-j> :<C-u>FzfBLines<CR>
   nnoremap <C-u><C-h> :<C-u>FzfHistory<CR>
   nnoremap <C-u><C-r> :<C-u>FzfHistory:<CR>
   nnoremap <C-u><C-s> :<C-u>FzfCommands<CR>
-  nnoremap <C-u><C-d><C-b> :<C-u>FzfDeleteBuffer<CR>
 
-  nnoremap <expr> <C-u><C-]> &filetype == 'help' ? "g\<C-]>" : ":<C-u>Tags<CR>"
-  nnoremap <expr> <C-u><C-]><C-b> &filetype == 'help' ? "g\<C-]>" : ":<C-u>BTags<CR>"
+  nnoremap <C-u><C-d><C-b> :<C-u>MyFzfDeleteBuffer<CR>
 
+  nnoremap <expr> <C-u><C-]> &filetype == 'help' ? "g\<C-]>" : ":<C-u>MyFzfTags<CR>"
+  nnoremap <expr> <C-u><C-]><C-b> &filetype == 'help' ? "g\<C-]>" : ":<C-u>MyFzfBTags<CR>"
   inoremap <expr> <C-x><C-u><C-f> fzf#vim#complete#path('rg --files --hidden --no-ignore', {'options': '--reverse', 'down': 10})
 
   "################################
