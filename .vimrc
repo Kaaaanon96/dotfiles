@@ -46,6 +46,7 @@ set visualbell          " ビープ音を可視化
 set virtualedit=onemore " 行末の1文字先までカーソル
 set laststatus=2        " ステータスラインを常に表示
 set ambiwidth=double    " 全角記号を正確に表示
+set updatetime=1000     " スワップファイルがディスクに書き込まれるまでの猶予時間(gitgutter用変更)
 
 "####################
 "カラースキーム

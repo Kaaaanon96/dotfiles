@@ -105,6 +105,29 @@ if !empty(glob(s:plugvim))
   Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-fugitive'
 
+  let g:gitgutter_map_keys = 0
+  let g:gitgutter_preview_win_floating = 1
+  let g:gitgutter_floating_window_options = {
+        \ 'line': 'cursor-1',
+        \ 'col': 'cursor+2',
+        \ 'moved': 'any',
+        \ 'pos': 'botleft',
+        \ 'padding': [0,5,0,1],
+        \ 'border': [1,1,1,1],
+        \ }
+
+  nmap [c <Plug>(GitGutterPrevHunk)
+  nmap ]c <Plug>(GitGutterNextHunk)
+
+  nmap <leader>gp <Plug>(GitGutterPreviewHunk)
+
+  omap ic <Plug>(GitGutterTextObjectInnerPending)
+  omap ac <Plug>(GitGutterTextObjectOuterPending)
+  xmap ic <Plug>(GitGutterTextObjectInnerVisual)
+  xmap ac <Plug>(GitGutterTextObjectOuterVisual)
+
+  let g:fugitive_no_maps = 1
+
   "################################
   " Text 
   "################################
