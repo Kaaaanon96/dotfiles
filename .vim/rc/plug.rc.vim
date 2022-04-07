@@ -33,6 +33,7 @@ if !empty(glob(s:plugvim))
   let g:fern#default_hidden = 1
 
   nnoremap <silent><C-e> :<C-u>:Fern . -drawer<CR>
+  nnoremap <leader>vf :<C-u>vsp<CR>:<C-u>:Fern . -reveal=%<CR>
   nnoremap <leader>f :<C-u>:Fern . -reveal=%<CR>
 
   function! s:configure_fern() abort
@@ -78,7 +79,7 @@ if !empty(glob(s:plugvim))
     nmap <buffer> mm <Plug>(fern-action-move)
     nmap <buffer> mr <Plug>(fern-action-rename)
     nmap <buffer> md <Plug>(fern-action-trash)
-    nmap <buffer> mp <Plug>(fern-action-clipboard-copy)
+    nmap <buffer> my <Plug>(fern-action-yank:label)
 
     nmap <buffer><expr>
           \ <Plug>(my-fern-quit-or-nop)
