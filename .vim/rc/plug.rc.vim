@@ -31,6 +31,7 @@ if !empty(glob(s:plugvim))
   Plug 'lambdalisue/fern-git-status.vim'
   let g:fern#disable_default_mappings = 1
   let g:fern#default_hidden = 1
+  let g:fern#default_exclude = '.DS_Store\|.localized'
 
   nnoremap <silent><C-e> :<C-u>:Fern . -drawer<CR>
   nnoremap <leader>vf :<C-u>vsp<CR>:<C-u>:Fern . -reveal=%<CR>
