@@ -48,7 +48,8 @@ export PS1="\u@\h:\W\$(__git_ps1)$ "
 # -----------------------------------
 # bat
 # -----------------------------------
-export BAT_THEME="TwoDark"
+export BAT_THEME="Visual Studio Dark+"
+export BAT_STYLE="header,numbers"
 
 # -----------------------------------
 # fzf

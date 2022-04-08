@@ -157,21 +157,35 @@ if !empty(glob(s:plugvim))
   Plug 'junegunn/fzf.vim'
   let g:fzf_buffers_jump = 1
   let g:fzf_command_prefix = 'Fzf'
-  let g:fzf_action ={
-    \ 'ctrl-i': 'split',
-    \ 'ctrl-v': 'vsplit' }
+  let g:fzf_action = {
+        \ 'ctrl-i': 'split',
+        \ 'ctrl-v': 'vsplit'
+        \ }
+  let g:fzf_colors = {
+        \ 'bg': ['bg', 'DraculaBgLight'],
+        \ 'bg+': ['bg', 'DraculaBgLighter'],
+        \ 'preview-bg': ['bg', 'DraculaBgDark'],
+        \ 'gutter': ['bg', 'DraculaBgLight'],
+        \ 'border':  ['fg', 'Error'],
+        \ }
+  let g:fzf_layout = {
+        \ 'window': {
+          \ 'width': 0.9,
+          \ 'height': 0.65,
+          \ },
+        \ }
 
   command! -bang -nargs=? -complete=dir MyFzfRgFiles
         \ call fzf#vim#files(
         \ <q-args>,
-        \ fzf#vim#with_preview({'options': '--reverse', 'source': 'rg --files --hidden --follow --no-ignore --glob "!.git/*"'}),
+        \ fzf#vim#with_preview({'options': ['--reverse'], 'source': 'rg --files --hidden --follow --no-ignore --glob "!.git/*"'}),
         \ <bang>0)
 
   command! -bang -nargs=* MyFzfRg
         \ call fzf#vim#grep(
-        \ 'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>),
+        \ 'rg --column --line-number --hidden --ignore-case --no-heading --color=always --glob "!.git/*" '.shellescape(<q-args>),
         \ 1,
-        \ fzf#vim#with_preview({'options': '--reverse --delimiter : --nth 4..'}),
+        \ fzf#vim#with_preview({'options': ['--reverse', '--nth', '4..', '--preview-window', '~1,+{2}-/2']}),
         \ <bang>0)
 
   command! -bang -nargs=* MyFzfTags
