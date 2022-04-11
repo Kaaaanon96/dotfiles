@@ -20,7 +20,13 @@ if !empty(glob(s:plugvim))
   Plug 'vim-airline/vim-airline-themes'
 
   let g:airline#extensions#tabline#enabled  = 1
-  let g:airline#extensions#branch#enavled   = 1
+  let g:airline#extensions#branch#enabled   = 1
+  let g:airline_powerline_fonts=1
+
+  let g:airline_left_sep = "\ue0b8"
+  let g:airline_left_alt_sep = "\ue0b9"
+  let g:airline_right_sep = "\ue0be"
+  let g:airline_right_alt_sep = "\ue0b9"
 
   " Plug#endあとにsyntax設定ある
 

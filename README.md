@@ -18,6 +18,11 @@
 
 `svn export https://github.com/LazoCoder/Pokemon-Terminal/trunk/pokemonterminal/Images`
 
+## font
+
+- https://github.com/yuru7/udev-gothic
+  - 35 JPDOC
+  - 35 NF
 
 ## todo
 
