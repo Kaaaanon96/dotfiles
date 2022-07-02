@@ -24,6 +24,17 @@
   - 35 JPDOC
   - 35 NF
 
+## bash
+
+```
+brew install bash
+which -a bash
+vim /etc/shells # brewで入れたbashのパスを追加
+chsh -s /usr/local/bin/bash
+echo $SHEL
+echo $BASH_VERSIO
+```
+
 ## todo
 
 設定周りmakeで自動化

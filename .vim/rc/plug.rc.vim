@@ -46,6 +46,8 @@ if !empty(glob(s:plugvim))
   function! s:configure_fern() abort
     nmap <buffer><nowait> <C-c> <Plug>(fern-action-cancel)
     nmap <buffer><nowait> <C-l> <Plug>(fern-action-redraw)
+    nmap <buffer><nowait> <C-r> <Plug>(fern-action-reload)
+    nmap <buffer><nowait> -     <Plug>(fern-action-mark:toggle)
 
     nmap <buffer><expr>
           \ <Plug>(my-fern-toggle-or-open)
@@ -247,7 +249,7 @@ if !empty(glob(s:plugvim))
   Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
   Plug 'prabirshrestha/vim-lsp'
-  Plug 'Kanon159/vim-lsp-settings', {'branch': 'solargraph-docker'}
+  Plug 'Kanon159/vim-lsp-settings', {'branch': 'kanon'}
   " Plug 'mattn/vim-lsp-settings'
 
   Plug 'hrsh7th/vim-vsnip'
@@ -296,7 +298,7 @@ if !empty(glob(s:plugvim))
     \    },
     \  },
     \}
-  let g:lsp_settings['solargraph'] = {'initialization_options': {'diagnostics': v:true}}
+  let g:lsp_settings['solargraph'] = {'initialization_options': {'diagnostics': v:true, 'formatting': v:true}}
   let g:lsp_settings['gopls'] = {
     \  'workspace_config': {
     \    'completeUnimported': v:true,
@@ -313,16 +315,25 @@ if !empty(glob(s:plugvim))
     \  },
     \}
 
+  let g:lsp_settings_filetype_ruby = 'solargraph'
+  " let g:vim_lsp_settings_volar_experimental_multiple_servers = v:true
+
   if !empty(glob('./.vim-lsp-settings/settings.json'))
-    function! s:might_setting_solargraph_tcp() abort
+    function! s:overwrite_lsp_settings() abort
       let l:lsp_local_conf = json_decode(join(readfile('./.vim-lsp-settings/settings.json'), "\n"))
-      let l:solargraph_tcp_conf = get(l:lsp_local_conf, 'solargraph-docker', '')
-      if !empty(l:solargraph_tcp_conf)
+
+      let l:solargraph_docker_conf = get(l:lsp_local_conf, 'solargraph-docker', '')
+      if !empty(l:solargraph_docker_conf)
         let g:lsp_settings_filetype_ruby = 'solargraph-docker'
+      endif
+
+      let l:volar_docker_conf = get(l:lsp_local_conf, 'volar-docker', '')
+      if !empty(l:volar_docker_conf)
+        let g:lsp_settings_filetype_vue = 'volar-docker'
       endif
     endfunction
 
-    call s:might_setting_solargraph_tcp()
+    call s:overwrite_lsp_settings()
   endif
 
   let g:asyncomplete_auto_popup = 1
