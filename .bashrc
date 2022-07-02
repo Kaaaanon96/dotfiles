@@ -1,26 +1,18 @@
-# -------------------------------------
-# bashのオプション
-# -------------------------------------
 
 export EDITOR=vim
+export ENV_PROFILE="$HOME/dotfiles/.bash_conf/env_profile.bash"
+export PATH="$HOME/dotfiles/bin:$PATH"  #自作スクリプト
+export BASH_SILENCE_DEPRECATION_WARNING=1   #macのzshの警告を非表示に
 
-#--------------------------------------
-#histriyの設定
-#--------------------------------------
+#--------------------------------------------
+
 HISTSIZE=10000
 HISTTIMEFORMAT='%Y/%m/%d %H:%M:%S'
 
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 shopt -u histappend
 
-#--------------------------------------
-# 自作スクリプト
-#--------------------------------------
-export PATH="$HOME/dotfiles/bin:$PATH"
-
-# -------------------------------------
-# エイリアス
-# -------------------------------------
+#--------------------------------------------
 
 alias la='ls -aG'
 alias ll='ls -alG'
@@ -34,9 +26,7 @@ alias ctags="`brew --prefix`/bin/ctags"
 alias phptags="ctags -R --languages=PHP -f ./php.tags "
 alias rubytags="ctags -R --languages=RUBY --exclude='*.js' -f ./ruby.tags"
 
-# -----------------------------------
-# プロンプト
-# -----------------------------------
+#--------------------------------------------
 
 source /usr/local/etc/bash_completion.d/git-completion.bash
 source /usr/local/etc/bash_completion.d/git-prompt.sh
@@ -45,15 +35,13 @@ GIT_PS1_SHOWDIRTYSTATE=true
 export PS1="\u@\h:\W\$(__git_ps1)$ "
 
 
-# -----------------------------------
-# bat
-# -----------------------------------
+#--------------------------------------------
+
 export BAT_THEME="Visual Studio Dark+"
 export BAT_STYLE="header,numbers"
 
-# -----------------------------------
-# fzf
-# -----------------------------------
+#--------------------------------------------
+
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore'
 export FZF_CTRL_T_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=header,grid --line-range :100 {}"'
@@ -83,10 +71,4 @@ if [ -f ~/.fzf.bash ]; then
       dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
     }
 fi
-
-#--------------------------------------
-# macのzsh警告を出さない
-#--------------------------------------
-
-export BASH_SILENCE_DEPRECATION_WARNING=1
 
