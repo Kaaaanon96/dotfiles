@@ -377,9 +377,9 @@ if !empty(glob(s:plugvim))
   "################################
   Plug 'mattn/vim-gomod'
 
-  Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
-  let g:markdown_enable_insert_mode_leader_mappings = 1 
-  let g:markdown_enable_spell_checking = 0
+  " Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
+  " let g:markdown_enable_insert_mode_leader_mappings = 1
+  " let g:markdown_enable_spell_checking = 0
 
   Plug 'hail2u/vim-css3-syntax', { 'for': ['html', 'css'] }
   Plug 'elzr/vim-json', { 'for': 'json' }
