@@ -1,5 +1,4 @@
 "# Author      : Kanon
-"# Since       : 2017/02/09
 
 set encoding=utf-8
 scriptencoding utf-8
