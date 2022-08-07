@@ -1,12 +1,17 @@
-## dotfiles
+# dotfiles
 
-****
-
-## 手動で必要な作業
+----
 
 - `./setup.sh`
 - vimで`:PlugInstall`
 - `brew bundle`
+
+## font
+
+- https://github.com/yuru7/udev-gothic
+  - 35 JPDOC
+  - 35 NF
+
 
 ## memo
 
@@ -17,12 +22,6 @@
 ## terminal用background image
 
 `svn export https://github.com/LazoCoder/Pokemon-Terminal/trunk/pokemonterminal/Images`
-
-## font
-
-- https://github.com/yuru7/udev-gothic
-  - 35 JPDOC
-  - 35 NF
 
 ## bash
 
