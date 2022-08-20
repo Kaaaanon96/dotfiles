@@ -249,7 +249,7 @@ if !empty(glob(s:plugvim))
   Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
   Plug 'prabirshrestha/vim-lsp'
-  Plug 'Kanon159/vim-lsp-settings', {'branch': 'kanon'}
+  Plug 'Kaaaanon96/vim-lsp-settings', {'branch': 'kanon'}
   " Plug 'mattn/vim-lsp-settings'
 
   Plug 'hrsh7th/vim-vsnip'
@@ -330,6 +330,11 @@ if !empty(glob(s:plugvim))
       let l:volar_docker_conf = get(l:lsp_local_conf, 'volar-docker', '')
       if !empty(l:volar_docker_conf)
         let g:lsp_settings_filetype_vue = 'volar-docker'
+      endif
+
+      let l:typescript_docker_conf = get(l:lsp_local_conf, 'typescript-language-server-docker', '')
+      if !empty(l:typescript_docker_conf)
+        let g:lsp_settings_filetype_typescript = 'typescript-language-server-docker'
       endif
     endfunction
 
