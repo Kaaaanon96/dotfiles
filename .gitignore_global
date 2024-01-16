@@ -52,8 +52,18 @@ tags
 .phpcd.vim
 phpcd_autoload.php
 
+### ここまで自動生成
 
-### Solargraph settings
+# vim
+
+vimrc_local.vim
+
+
+# Solargraph settings
 
 .solargraph.yml
 
+# docker
+
+docker-compose.override.yml
+docker-compose.local.yml

@@ -141,7 +141,7 @@ if !empty(glob(s:plugvim))
   " Text 
   "################################
   Plug 'cohama/lexima.vim'
-  Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'eruby', 'php'] }
+  Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'eruby', 'php', 'vue'] }
 
   "################################
   " Substitute
@@ -249,16 +249,33 @@ if !empty(glob(s:plugvim))
   Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
   Plug 'prabirshrestha/vim-lsp'
-  Plug 'Kaaaanon96/vim-lsp-settings', {'branch': 'kanon'}
-  " Plug 'mattn/vim-lsp-settings'
+  Plug 'mattn/vim-lsp-settings'
+  " Plug 'Kaaaanon96/vim-lsp-settings', {'branch': 'kanon'}
 
   Plug 'hrsh7th/vim-vsnip'
   Plug 'hrsh7th/vim-vsnip-integ'
 
-  let g:lsp_fold_enabled = 0
+  Plug 'github/copilot.vim'
+
+  command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
+
+  let g:lsp_use_native_client = 1 " TCP使う場合は0にする
+  let g:lsp_preview_float = 1
+  let g:lsp_text_edit_enabled = 1
   let g:lsp_diagnostics_enabled = 1
   let g:lsp_diagnostics_echo_cursor = 1
-  let g:lsp_text_edit_enabled = 1
+  " let g:lsp_diagnostics_float_cursor = 1
+  let g:lsp_diagnostics_virtual_text_enabled = 1
+  let g:lsp_diagnostics_virtual_text_insert_mode_enabled = 0
+  let g:lsp_diagnostics_virtual_text_prefix = " ‣ "
+  let g:lsp_diagnostics_virtual_text_align = "right"
+  let g:lsp_inlay_hints_enabled = 1
+  let g:lsp_max_buffer_size = 10000000
+  let g:lsp_fold_enabled = 0
+  let g:lsp_hover_ui = 'float'
+  let g:lsp_log_verbose = 0
+  let g:lsp_semantic_enabled = 1
+  let g:lsp_semantic_delay = 1000
 
   " ドキュメンから持ってきたやつ
   let intelephense_stubs_default = [
@@ -299,47 +316,38 @@ if !empty(glob(s:plugvim))
     \  },
     \}
   let g:lsp_settings['solargraph'] = {'initialization_options': {'diagnostics': v:true, 'formatting': v:true}}
-  let g:lsp_settings['gopls'] = {
-    \  'workspace_config': {
-    \    'completeUnimported': v:true,
-    \    'analyses': {
-    \      'fillstruct': v:true,
-    \    },
-    \  },
-    \  'initialization_options': {
-    \    'usePlaceholders': v:true,
-    \    'staticcheck': v:true,
-    \    'analyses': {
-    \      'fillstruct': v:true,
-    \    },
-    \  },
-    \}
+  " let g:lsp_settings['gopls'] = {
+  "   \  'initialization_options': {
+  "   \    'usePlaceholders': v:true,
+  "   \    'staticcheck': v:true,
+  "   \  },
+  "   \}
 
   let g:lsp_settings_filetype_ruby = 'solargraph'
   " let g:vim_lsp_settings_volar_experimental_multiple_servers = v:true
 
-  if !empty(glob('./.vim-lsp-settings/settings.json'))
-    function! s:overwrite_lsp_settings() abort
-      let l:lsp_local_conf = json_decode(join(readfile('./.vim-lsp-settings/settings.json'), "\n"))
+  " if !empty(glob('./.vim-lsp-settings/settings.json'))
+  "   function! s:overwrite_lsp_settings() abort
+  "     let l:lsp_local_conf = json_decode(join(readfile('./.vim-lsp-settings/settings.json'), "\n"))
 
-      let l:solargraph_docker_conf = get(l:lsp_local_conf, 'solargraph-docker', '')
-      if !empty(l:solargraph_docker_conf)
-        let g:lsp_settings_filetype_ruby = 'solargraph-docker'
-      endif
+  "     let l:solargraph_docker_conf = get(l:lsp_local_conf, 'solargraph-docker', '')
+  "     if !empty(l:solargraph_docker_conf)
+  "       let g:lsp_settings_filetype_ruby = 'solargraph-docker'
+  "     endif
 
-      let l:volar_docker_conf = get(l:lsp_local_conf, 'volar-docker', '')
-      if !empty(l:volar_docker_conf)
-        let g:lsp_settings_filetype_vue = 'volar-docker'
-      endif
+  "     let l:volar_docker_conf = get(l:lsp_local_conf, 'volar-docker', '')
+  "     if !empty(l:volar_docker_conf)
+  "       let g:lsp_settings_filetype_vue = 'volar-docker'
+  "     endif
 
-      let l:typescript_docker_conf = get(l:lsp_local_conf, 'typescript-language-server-docker', '')
-      if !empty(l:typescript_docker_conf)
-        let g:lsp_settings_filetype_typescript = 'typescript-language-server-docker'
-      endif
-    endfunction
+  "     let l:typescript_docker_conf = get(l:lsp_local_conf, 'typescript-language-server-docker', '')
+  "     if !empty(l:typescript_docker_conf)
+  "       let g:lsp_settings_filetype_typescript = 'typescript-language-server-docker'
+  "     endif
+  "   endfunction
 
-    call s:overwrite_lsp_settings()
-  endif
+  "   call s:overwrite_lsp_settings()
+  " endif
 
   let g:asyncomplete_auto_popup = 1
   let g:asyncomplete_auto_completeopt = 1
@@ -348,7 +356,6 @@ if !empty(glob(s:plugvim))
   imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
   imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
   imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-
 
   function! s:configure_lsp() abort
     setlocal omnifunc=lsp#complete
@@ -377,6 +384,8 @@ if !empty(glob(s:plugvim))
     autocmd User lsp_buffer_enabled call s:configure_lsp()
   augroup END
 
+  nnoremap <leader>gcp <Cmd>Copilot panel<CR>
+
   "################################
   " language
   "################################
@@ -386,10 +395,8 @@ if !empty(glob(s:plugvim))
   " let g:markdown_enable_insert_mode_leader_mappings = 1
   " let g:markdown_enable_spell_checking = 0
 
-  Plug 'hail2u/vim-css3-syntax', { 'for': ['html', 'css'] }
   Plug 'elzr/vim-json', { 'for': 'json' }
   Plug 'cespare/vim-toml', { 'for': 'toml' }
-  Plug 'othree/yajs.vim', { 'for': ['javascript', 'javascript.jsx', 'jsx'] }
 
   "################################
   " tag

@@ -15,7 +15,7 @@ fzf-init:
 	$(FZF_DIR)/install --no-zsh --no-fish --key-bindings --completion --no-update-rc
 
 nodenv-init: $(BASH_ENV_PROFILE)
-	git clone git://github.com/nodenv/nodenv.git $(NODENV_DIR)
+	git clone https://github.com/nodenv/nodenv.git $(NODENV_DIR)
 	cd $(NODENV_DIR) && src/configure && make -C src
 	echo 'export PATH="$$HOME/.nodenv/bin:$$PATH"' >> $<
 	echo 'eval "$$(nodenv init -)"' >> $<

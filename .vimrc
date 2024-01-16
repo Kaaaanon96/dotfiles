@@ -35,7 +35,7 @@ set cursorline          " 行の強調表示
 set title               " 編集中のファイル名を表示
 set showmatch           " 括弧入力時の対応する括弧を表示
 set ruler               " 括弧の位置を表示
-"set showcmd             " コマンド表示
+" set showcmd             " コマンド表示
 set noshowmode          " コマンドを表示しない
 set pumheight=10        " 補完メニューの高さ
 " set completeopt=menuone " 補完メニューの表示設定
@@ -51,7 +51,7 @@ set updatetime=1000     " スワップファイルがディスクに書き込ま
 "カラースキーム
 "###################
 
-" set redrawtime=4000
+set redrawtime=4000
 
 "#########################
 "タブ/インデント設定
@@ -158,6 +158,32 @@ inoremap <C-e> <C-o>$
 
 " terminal
 tnoremap <silent><C-w><Esc> <C-w><S-n>:set nonumber<CR>
+
+
+"############################
+" local setting
+" vimrc_local.vimを用いてプロジェクト独自の設定を適用できるようになる
+" > https://github.com/ujihisa/config/blob/master/_vimrc#L1045
+" > https://thinca.hatenablog.com/entry/20100216/1266294717
+"############################
+
+" Load settings for each location.
+augroup vimrc-local
+  autocmd!
+  autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
+augroup END
+
+function! s:vimrc_local(loc)
+  let files = findfile('vimrc_local.vim', escape(a:loc, ' ') . ';', -1)
+  for i in reverse(filter(files, 'filereadable(v:val)'))
+    source `=i`
+  endfor
+endfunction
+
+if exists('g:loaded_vimrc') && g:loaded_vimrc == 0
+  call s:vimrc_local(getcwd())
+endif
+let g:loaded_vimrc = 1
 
 "############################
 " plugin
