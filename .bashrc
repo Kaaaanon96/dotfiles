@@ -70,5 +70,21 @@ if [ -f ~/.fzf.bash ]; then
       local dir
       dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
     }
+
+    # fgs - fzf git switch
+    fgs() {
+        local branch
+        branch=$(git branch | sed 's/^.* //g' | fzf +m --ansi --preview "git log {} --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit" --preview-window "right,70%")
+        git switch $branch
+    }
+
+    # `git checkout **<TAB>`の様にgitコマンド内で`**<TAB>`でブランチ名での補完ができるようになる
+    _fzf_complete_git_branch() {
+      _fzf_complete +m --prompt="git branch> " \
+          --preview "git log {} --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit" \
+          --preview-window "right,70%" -- "$@" < <(git branch | sed 's/^.* //g')
+    }
+
+    [ -n "$BASH" ] && complete -F _fzf_complete_git_branch -o bashdefault -o default -o nospace git
 fi
 
