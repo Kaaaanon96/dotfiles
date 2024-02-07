@@ -269,7 +269,7 @@ if !empty(glob(s:plugvim))
   let g:lsp_diagnostics_virtual_text_insert_mode_enabled = 0
   let g:lsp_diagnostics_virtual_text_prefix = " ‣ "
   let g:lsp_diagnostics_virtual_text_align = "right"
-  let g:lsp_inlay_hints_enabled = 1
+  let g:lsp_inlay_hints_enabled = 0
   let g:lsp_max_buffer_size = 10000000
   let g:lsp_fold_enabled = 0
   let g:lsp_hover_ui = 'float'
