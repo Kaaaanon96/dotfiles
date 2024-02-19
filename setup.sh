@@ -28,7 +28,10 @@ do
 done
 
 git config --global core.excludesfile ~/.gitignore_global
+# 全体の流れを見る
 git config --global alias.tree 'log --graph --all --format="%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s"'
+# 作業中のブランチの流れを見る
+git config --global alias.graph 'log --graph --date=format:"%Y/%m/%d %H:%M:%S" --pretty=format:"%x09%Cgreen[%ad] %Creset%C(auto)%h %Creset%C(auto)%d %C(auto)%s  (%Cresetby %C(cyan)%an%Creset)"'
 
 echo "終わり"
 
