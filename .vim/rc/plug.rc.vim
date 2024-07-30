@@ -323,7 +323,8 @@ if !empty(glob(s:plugvim))
   "   \  },
   "   \}
 
-  let g:lsp_settings_filetype_ruby = 'solargraph'
+  " let g:lsp_settings_filetype_ruby = 'solargraph'
+  let g:lsp_settings_filetype_ruby = 'ruby-lsp'
   " let g:vim_lsp_settings_volar_experimental_multiple_servers = v:true
 
   " if !empty(glob('./.vim-lsp-settings/settings.json'))
