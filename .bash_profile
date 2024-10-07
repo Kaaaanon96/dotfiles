@@ -8,6 +8,3 @@ fi
 if [ -f ~/.bash_conf/env_profile.bash ] ; then
     . ~/.bash_conf/env_profile.bash
 fi
-
-export GOPATH=~/go
-export PATH=$PATH:$GOPATH/bin
