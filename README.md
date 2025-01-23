@@ -3,6 +3,8 @@
 ----
 
 - `./setup.sh`
+- `make fzf-init`
+  - 必要に応じて他も実行
 - vimで`:PlugInstall`
 - `brew bundle`
 
