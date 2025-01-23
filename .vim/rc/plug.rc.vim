@@ -70,6 +70,7 @@ if !empty(glob(s:plugvim))
           \ )
 
     nmap <buffer><nowait> <C-m> <plug>(my-fern-toggle-or-open)
+    nmap <buffer><nowait> <CR> <plug>(my-fern-toggle-or-open)
     nmap <buffer><nowait> l <Plug>(my-fern-expand-or-enter)
     nmap <buffer><nowait> h <plug>(my-fern-collapse-or-leave)
 
