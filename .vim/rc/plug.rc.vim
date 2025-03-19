@@ -184,30 +184,42 @@ if !empty(glob(s:plugvim))
           \ },
         \ }
 
-  command! -bang -nargs=? -complete=dir MyFzfRgFiles
+  function! s:rg_with_type(type, ...)
+    let args = copy(a:000)
+    call fzf#vim#grep(
+          \ 'rg --column --line-number --hidden --ignore-case --no-heading --color=always --glob "!.git/*" -t '.shellescape(a:type).' '.shellescape(join(args)),
+          \ 1,
+          \ fzf#vim#with_preview({'options': ['--reverse', '--nth', '4..', '--preview-window', '~1,+{2}-/2']}),
+          \ 0)
+  endfunction
+
+  command! -nargs=? -complete=dir MyFzfRgFiles
         \ call fzf#vim#files(
         \ <q-args>,
         \ fzf#vim#with_preview({'options': ['--reverse'], 'source': 'rg --files --hidden --follow --no-ignore --glob "!.git/*"'}),
-        \ <bang>0)
+        \ 0)
 
-  command! -bang -nargs=* MyFzfRg
+  command! -nargs=* MyFzfRg
         \ call fzf#vim#grep(
         \ 'rg --column --line-number --hidden --ignore-case --no-heading --color=always --glob "!.git/*" '.shellescape(<q-args>),
         \ 1,
         \ fzf#vim#with_preview({'options': ['--reverse', '--nth', '4..', '--preview-window', '~1,+{2}-/2']}),
-        \ <bang>0)
+        \ 0)
 
-  command! -bang -nargs=* MyFzfTags
+  command! -nargs=+ MyFzfRgWithType
+        \ call s:rg_with_type(<f-args>)
+
+  command! -nargs=* MyFzfTags
         \ call fzf#vim#tags(
         \ expand('<cword>'),
         \ fzf#vim#with_preview({ "placeholder": "--tag {2}:{-1}:{3}" }),
-        \ <bang>0)
+        \ 0)
 
-  command! -bang -nargs=* MyFzfBTags
+  command! -nargs=* MyFzfBTags
         \ call fzf#vim#buffer_tags(
         \ expand('<cword>'),
         \ fzf#vim#with_preview({ "placeholder": "{2}:{3}" }),
-        \ <bang>0)
+        \ 0)
 
   function! s:delete_buf_sink(lines)
     if len(a:lines) < 2
@@ -220,15 +232,17 @@ if !empty(glob(s:plugvim))
   command! -bang -nargs=* MyFzfDeleteBuffer
         \ call fzf#vim#buffers(
         \ {'sink*': {lines -> s:delete_buf_sink(lines)}},
-        \ <bang>0)
+        \ 0)
 
   nnoremap <C-u><C-i> :<C-u>FzfGFiles?<CR>
   nnoremap <C-u><C-p> :<C-u>MyFzfRgFiles<CR>
   nnoremap <C-u><C-b> :<C-u>FzfBuffers<CR>
   nnoremap <C-u><C-g> :<C-u>MyFzfRg<CR>
+  nnoremap <C-u><C-g><C-r> :<C-u>MyFzfRgWithType ruby<CR>
   nnoremap <C-u><C-j> :<C-u>FzfBLines<CR>
   nnoremap <C-u><C-h> :<C-u>FzfHistory<CR>
   nnoremap <C-u><C-r> :<C-u>FzfHistory:<CR>
+  nnoremap <C-u><C-/> :<C-u>FzfHistory/<CR>
   nnoremap <C-u><C-s> :<C-u>FzfCommands<CR>
 
   nnoremap <C-u><C-d><C-b> :<C-u>MyFzfDeleteBuffer<CR>
