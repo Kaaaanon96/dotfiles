@@ -28,11 +28,13 @@ alias rubytags="ctags -R --languages=RUBY --exclude='*.js' -f ./ruby.tags"
 
 #--------------------------------------------
 
-source $(brew --prefix)/etc/bash_completion.d/git-completion.bash
-source $(brew --prefix)/etc/bash_completion.d/git-prompt.sh
+if type brew > /dev/null 2>&1; then
+    source $(brew --prefix)/etc/bash_completion.d/git-completion.bash
+    source $(brew --prefix)/etc/bash_completion.d/git-prompt.sh
 
-GIT_PS1_SHOWDIRTYSTATE=true
-export PS1="\u@\h:\W\$(__git_ps1)$ "
+    GIT_PS1_SHOWDIRTYSTATE=true
+    export PS1="\u@\h:\W\$(__git_ps1)$ "
+fi
 
 
 #--------------------------------------------
