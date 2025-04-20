@@ -22,13 +22,14 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias df='df -h'
 alias relogin='exec -l $SHELL'
-alias ctags="`brew --prefix`/bin/ctags"
 alias phptags="ctags -R --languages=PHP -f ./php.tags "
 alias rubytags="ctags -R --languages=RUBY --exclude='*.js' -f ./ruby.tags"
 
 #--------------------------------------------
 
 if type brew > /dev/null 2>&1; then
+    alias ctags="`brew --prefix`/bin/ctags"
+
     source $(brew --prefix)/etc/bash_completion.d/git-completion.bash
     source $(brew --prefix)/etc/bash_completion.d/git-prompt.sh
 
