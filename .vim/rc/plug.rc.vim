@@ -234,12 +234,14 @@ if !empty(glob(s:plugvim))
         \ {'sink*': {lines -> s:delete_buf_sink(lines)}},
         \ 0)
 
-  nnoremap <C-u><C-i> :<C-u>FzfGFiles?<CR>
   nnoremap <C-u><C-p> :<C-u>MyFzfRgFiles<CR>
-  nnoremap <C-u><C-b> :<C-u>FzfBuffers<CR>
   nnoremap <C-u><C-g> :<C-u>MyFzfRg<CR>
-  nnoremap <C-u><C-w><C-r> :<C-u>MyFzfRgWithType ruby<CR>
   nnoremap <C-u><C-j> :<C-u>FzfBLines<CR>
+  nnoremap <C-u><C-b> :<C-u>FzfBuffers<CR>
+  nnoremap <C-u><C-i> :<C-u>FzfGFiles?<CR>
+
+  nnoremap <C-u><C-w><C-r> :<C-u>MyFzfRgWithType ruby<CR>
+
   nnoremap <C-u><C-h> :<C-u>FzfHistory<CR>
   nnoremap <C-u><C-r> :<C-u>FzfHistory:<CR>
   nnoremap <C-u><C-/> :<C-u>FzfHistory/<CR>

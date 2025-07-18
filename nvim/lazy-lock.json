@@ -1,0 +1,8 @@
+{
+  "catppuccin": { "branch": "main", "commit": "fa42eb5e26819ef58884257d5ae95dd0552b9a66" },
+  "fern-git-status.vim": { "branch": "master", "commit": "151336335d3b6975153dad77e60049ca7111da8e" },
+  "fern.vim": { "branch": "main", "commit": "88f6d81c2d2348cbfb3120931ce72268195859c6" },
+  "fzf-lua": { "branch": "main", "commit": "f972ad787ee8d3646d30000a0652e9b168a90840" },
+  "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
+  "nvim-web-devicons": { "branch": "master", "commit": "0422a19d9aa3aad2c7e5cca167e5407b13407a9d" }
+}

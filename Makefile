@@ -1,3 +1,5 @@
+DOTFILE_DIR:=$(shell pwd)
+
 CACHE_DIR:=~/.cache
 FZF_DIR:=$(CACHE_DIR)/.fzf
 
@@ -7,8 +9,16 @@ RBENV_DIR:=~/.rbenv
 BASH_CONF_DIR:=./.bash_conf
 BASH_ENV_PROFILE:=$(BASH_CONF_DIR)/env_profile.bash
 
+CONF_DIR:=~/.config
+NVIM_DIR:=$(CONF_DIR)/nvim
+
 msg:
 	@echo あ
+
+nvim-init:
+	mkdir -p $(CONF_DIR)
+	ln -s $(DOTFILE_DIR)/nvim $(NVIM_DIR)
+	ls -l $(NVIM_DIR)
 
 fzf-init: 
 	git clone --depth 1 https://github.com/junegunn/fzf.git $(FZF_DIR)
