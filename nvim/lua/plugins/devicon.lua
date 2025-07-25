@@ -1,5 +1,7 @@
 return {
-  "nvim-tree/nvim-web-devicons",
-  lazy = false,
-  priority = 100,
+  {
+    "nvim-tree/nvim-web-devicons",
+    lazy = false,
+    priority = 500,
+  },
 }

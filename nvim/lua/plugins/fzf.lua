@@ -1,5 +1,5 @@
--- https://github.com/ibhagwan/fzf-lua
 return {
+  -- https://github.com/ibhagwan/fzf-lua
   {
     "ibhagwan/fzf-lua",
     lazy = false,
@@ -23,7 +23,6 @@ return {
       keyset('n', '<C-u><C-n>', '<Cmd>FzfLua commands<CR>', { silent = true, desc = 'fzf: search neovim commands' })
       keyset('n', '<C-u><C-h>', '<Cmd>FzfLua command_history<CR>', { silent = true, desc = 'fzf: search command history' })
 
-
       -- fzf settings
       local fzf_config = require("fzf-lua").config
       local fzf_actions = require("fzf-lua").actions
@@ -36,13 +35,19 @@ return {
       }
 
       return {
+        -- コマンド用に設定している環境変数を無視
+        fzf_opts_env = false,
+        fzf_opts = {
+          ["--no-mouse"] = true
+        },
         winopts = {
           width = 0.9,
           height = 0.75,
+          border = "rounded",
           preview = {
             default = "bat",
             layout = "horizontal",
-            horizontal = 'right:50%'
+            horizontal = 'right:50%',
           },
         },
         keymap = {
@@ -67,8 +72,62 @@ return {
           actions = {
             ["ctrl-g"] = ''
           }
-        }
+        },
+        lsp = {
+          prompt = "Lsp> ",
+          jump1_action = fzf_actions.file_vsplit,
+        },
+        keymaps = {
+          prompt = "Keymaps> ",
+          winopts = {
+            width = 0.5,
+            height = 0.5,
+            row = 0.5,
+            col = 0.5,
+            preview = {
+              hidden = true,
+            },
+          },
+        },
+        builtin = {
+          prompt = "builtin❯ ",
+          winopts = {
+            width = 0.5,
+            height = 0.5,
+            row = 0.5,
+            col = 0.5,
+          },
+        },
       }
+    end,
+    config = function (_, opts)
+      require("fzf-lua").setup(opts)
+
+      local configure_lsp_fzf = function()
+        local keyset = vim.keymap.set
+        keyset('n', '<leader>ll', '<Cmd>FzfLua lsp_finder<CR>', { silent = true, desc = 'fzf: search lsp combine view' })
+
+        keyset('n', '<leader>l]', '<Cmd>FzfLua lsp_references<CR>', { silent = true, desc = 'fzf: search lsp references' })
+
+        keyset('n', '<leader>ld', '<Cmd>FzfLua lsp_definitions<CR>', { silent = true, desc = 'fzf: search lsp definitions' })
+        keyset('n', '<leader>lt', '<Cmd>FzfLua lsp_typedefs<CR>', { silent = true, desc = 'fzf: search lsp type definitions' })
+
+        keyset('n', '<leader>li', '<Cmd>FzfLua lsp_implementations<CR>', { silent = true, desc = 'fzf: search lsp implementations' })
+        keyset('n', '<leader>lsd', '<Cmd>FzfLua lsp_document_symbols<CR>', { silent = true, desc = 'fzf: search lsp symbol in current buffer' })
+        keyset('n', '<leader>lsw', '<Cmd>FzfLua lsp_workspace_symbols<CR>', { silent = true, desc = 'fzf: search lsp symbol in workspace' })
+
+        keyset('n', '<leader>lci', '<Cmd>FzfLua lsp_incoming_calls<CR>', { silent = true, desc = 'fzf: search lsp incoming calls list' })
+        keyset('n', '<leader>lco', '<Cmd>FzfLua lsp_outgoing_calls<CR>', { silent = true, desc = 'fzf: search lsp outgoint calls list' })
+
+        keyset('n', '<leader>lp', '<Cmd>FzfLua diagnostics_document<CR>', { silent = true, desc = 'fzf: search lsp diagnostics list' })
+
+        keyset('n', '<leader>la', '<Cmd>FzfLua lsp_code_actions<CR>', { silent = true, desc = 'fzf: search lsp code actions' })
+      end
+
+      vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup("MyFzfLspConfig", {}),
+        callback = configure_lsp_fzf
+      })
     end,
   }
 }

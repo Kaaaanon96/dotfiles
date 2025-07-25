@@ -23,6 +23,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.maplocalleader = "_"
 
 -- Setup lazy.nvim
+-- https://lazy.folke.io/configuration
 require("lazy").setup({
   spec = {
     -- `LazyVim/LazyVim`は統合プラグインなので含めない
@@ -30,10 +31,8 @@ require("lazy").setup({
     -- import your plugins
     { import = "plugins" },
   },
-  -- Configure any other settings here. See the documentation for more details.
-  -- colorscheme that will be used when installing plugins.
-  --install = { colorscheme = { "habamax" } },
-  -- automatically check for plugin updates
-  --checker = { enabled = true },
+  change_detection = {
+    enabled = false
+  }
 })
 

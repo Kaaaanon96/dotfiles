@@ -1,6 +1,6 @@
--- https://github.com/lambdalisue/vim-fern
+-- fernと関連するプラグインの設定
 return {
-  -- fernと関連するプラグインの設定
+  -- https://github.com/lambdalisue/vim-fern
   {
     "lambdalisue/fern.vim",
     lazy = false,
@@ -90,7 +90,7 @@ return {
     dependencies = {
       {
         "lambdalisue/fern-git-status.vim",
-      }
-    }
+      },
+    },
   },
 }

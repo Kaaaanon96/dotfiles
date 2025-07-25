@@ -1,4 +1,3 @@
-
 export EDITOR=vim
 export ENV_PROFILE="$HOME/dotfiles/.bash_conf/env_profile.bash"
 export PATH="$HOME/dotfiles/bin:$PATH"  #自作スクリプト
@@ -89,5 +88,7 @@ if [ -f ~/.fzf.bash ]; then
     }
 
     [ -n "$BASH" ] && complete -F _fzf_complete_git_branch -o bashdefault -o default -o nospace git
+
+    export RUNEWIDTH_EASTASIAN=1
 fi
 
