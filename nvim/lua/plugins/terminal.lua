@@ -16,20 +16,27 @@ return {
       end
 
       return {
+        size = function(term)
+          if term.direction == "horizontal" then
+            return math.floor(vim.o.lines * 0.4)
+          elseif term.direction == "vertical" then
+            return math.floor(vim.o.columns * 0.35)
+          end
+        end,
         open_mapping = [[<c-\>]],
-        direction = 'float',
+        direction = "float",
         start_in_insert = true,
         close_on_exit = true,
         persist_size = true,
         float_opts = {
-          border = 'double',
+          border = "double",
           width = function()
             return math.floor(vim.o.columns*0.7)
           end,
           height = function()
             return math.floor(vim.o.lines*0.75)
           end,
-          title_pos = 'left',
+          title_pos = "left",
         },
         shade_terminals = false,
         highlights = {
@@ -47,32 +54,37 @@ return {
       require("toggleterm").setup(opts)
 
       local function toggle_terminal_in_direction(direction)
-        -- direction = 'vertical' | 'horizontal' | 'tab' | 'float'
+        -- direction = "vertical" | "horizontal" | "tab" | "float"
 
         local count = vim.v.count > 0 and vim.v.count or 1
         local formatted_cmd = string.format("%dToggleTerm direction=%s", count, direction)
         vim.cmd(formatted_cmd)
       end
 
-      vim.api.nvim_create_user_command('Fterm', function()
-        toggle_terminal_in_direction('float')
-      end, { nargs = 0, count = 0, desc = 'Toggle floating terminal (e.g., :2Fterm)' })
+      vim.api.nvim_create_user_command("Fterm", function()
+        toggle_terminal_in_direction("float")
+      end, { nargs = 0, count = 0, desc = "Toggle floating terminal (e.g., :2Fterm)" })
 
-      vim.api.nvim_create_user_command('Vterm', function()
-        toggle_terminal_in_direction('vertical')
-      end, { nargs = 0, count = 0, desc = 'Toggle vertical terminal (e.g., :3Vterm)' })
+      vim.api.nvim_create_user_command("Vterm", function()
+        toggle_terminal_in_direction("vertical")
+      end, { nargs = 0, count = 0, desc = "Toggle vertical terminal (e.g., :3Vterm)" })
 
-      vim.api.nvim_create_user_command('Hterm', function()
-        toggle_terminal_in_direction('horizontal')
-      end, { nargs = 0, count = 0, desc = 'Toggle horizontal terminal (e.g., :4Hterm)' })
+      vim.api.nvim_create_user_command("Hterm", function()
+        toggle_terminal_in_direction("horizontal")
+      end, { nargs = 0, count = 0, desc = "Toggle horizontal terminal (e.g., :4Hterm)" })
 
       -- ターミナルが開かれた時にキーマップを設定するautocmd
-      vim.api.nvim_create_autocmd('TermOpen', {
-        pattern = 'term://*',
-        desc = 'Set keymaps for toggleterm terminal',
+      vim.api.nvim_create_autocmd("TermOpen", {
+        pattern = "term://*toggleterm#*",
+        desc = "Set keymaps for toggleterm terminal",
         callback = function()
           local mapset = vim.keymap.set
-          mapset('t', '<esc>', [[<C-\><C-n>]], { buffer = 0, noremap = true })
+          mapset("t", "<esc>", [[<C-\><C-n>]], { buffer = 0, noremap = true })
+
+          mapset("t", "<C-h>", [[<C-\><C-n><C-w>h]], { buffer = 0, noremap = true })
+          mapset("t", "<C-j>", [[<C-\><C-n><C-w>j]], { buffer = 0, noremap = true })
+          mapset("t", "<C-k>", [[<C-\><C-n><C-w>k]], { buffer = 0, noremap = true })
+          mapset("t", "<C-l>", [[<C-\><C-n><C-w>l]], { buffer = 0, noremap = true })
         end,
       })
     end,
