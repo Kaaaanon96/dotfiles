@@ -26,6 +26,8 @@ opt.tabstop = 2
 opt.shiftwidth = 2
 opt.softtabstop = 0
 
+opt.completeopt = { 'popup', 'menu', 'menuone', 'noinsert', 'noselect' }
+
 --------------------------------------------------------
 -- mappings
 --------------------------------------------------------
@@ -66,7 +68,7 @@ local lsp_enables = {
 vim.lsp.enable(lsp_enables)
 
 -- keymapはfzf.luaも参照(結果をlistで取得できるものはfzf経由で呼び出し)
-local configure_lsp = function()
+local configure_lsp = function(args)
   local lsp_buf = vim.lsp.buf
   local lsp_keyopts = { noremap = true, silent = true }
 
@@ -77,6 +79,16 @@ local configure_lsp = function()
 
   keyset("n", "<leader>lf", lsp_buf.format, lsp_keyopts)
   keyset("v", "<leader>lf", lsp_buf.format, lsp_keyopts)
+
+  -- 参考: https://neovim.io/doc/user/lsp.html#lsp-attach
+  local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+  -- Enable auto-completion. Note: Use CTRL-Y to select an item. |complete_CTRL-Y|
+  if client:supports_method('textDocument/completion') then
+    -- Optional: trigger autocompletion on EVERY keypress. May be slow!
+    -- local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
+    -- client.server_capabilities.completionProvider.triggerCharacters = chars
+    vim.lsp.completion.enable(true, client.id, args.buf, {autotrigger = true})
+  end
 end
 
 vim.api.nvim_create_autocmd('LspAttach', {

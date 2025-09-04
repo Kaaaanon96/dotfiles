@@ -23,6 +23,8 @@ return {
       keyset('n', '<C-u><C-n>', '<Cmd>FzfLua commands<CR>', { silent = true, desc = 'fzf: search neovim commands' })
       keyset('n', '<C-u><C-h>', '<Cmd>FzfLua command_history<CR>', { silent = true, desc = 'fzf: search command history' })
 
+      keyset('n', '<C-u><C-m>', '<Cmd>FzfLua keymaps<CR>', { silent = true, desc = 'fzf: search neovim maps' })
+
       -- fzf settings
       local fzf_config = require("fzf-lua").config
       local fzf_actions = require("fzf-lua").actions
