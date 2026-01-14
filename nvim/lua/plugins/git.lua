@@ -27,7 +27,17 @@ return {
     "sindrets/diffview.nvim",
     lazy = true,
     cmd = { "DiffviewOpen", "DiffviewFileHistory" },
-    config = function()
+    opts = {
+      view = {
+        merge_tool = {
+          layout = "diff4_mixed",   -- 4分割(下段編集)レイアウト
+          disable_diagnostics = true,
+        },
+      },
+    },
+    config = function (_, opts)
+      require("diffview").setup(opts)
+
       vim.api.nvim_create_user_command(
         "Gdiff",
         function(opts)
