@@ -10,3 +10,6 @@
 !/.bash_conf/.keep
 
 NOTE.md
+
+/bg_img/*
+!/bg_img/.keep

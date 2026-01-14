@@ -22,8 +22,14 @@
 - `brew edit vim`でconfigureに`--with-features=huge`を追加して`brew install --build-from-source vim`して`relogin`
 
 ## terminal用background image
-
+```
 `svn export https://github.com/LazoCoder/Pokemon-Terminal/trunk/pokemonterminal/Images`
+※GitHubのsvnサポート終わってるらしい
+
+`curl -O "https://raw.githubusercontent.com/LazoVelko/Pokemon-Terminal/master/pokemonterminal/Images/Generation%20I%20-%20Kanto/092.jpg"`
+
+makeにしてある
+```
 
 ## bash
 

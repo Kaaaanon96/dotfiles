@@ -11,12 +11,21 @@ BASH_ENV_PROFILE:=$(BASH_CONF_DIR)/env_profile.bash
 
 CONF_DIR:=~/.config
 NVIM_DIR:=$(CONF_DIR)/nvim
+WEZ_DIR:=$(CONF_DIR)/wezterm
+
+BG_IMG_DIR:=$(DOTFILE_DIR)/bg_img
 
 msg:
 	@echo あ
 
-nvim-init:
-	mkdir -p $(CONF_DIR)
+wez-init: $(CONF_DIR) fetch-term-bg
+	ln -s $(DOTFILE_DIR)/wezterm $(WEZ_DIR)
+	ls -l $(WEZ_DIR)
+
+fetch-term-bg:
+	cd $(BG_IMG_DIR) && curl -O "https://raw.githubusercontent.com/LazoVelko/Pokemon-Terminal/master/pokemonterminal/Images/Generation%20I%20-%20Kanto/092.jpg"
+
+nvim-init: $(CONF_DIR)
 	ln -s $(DOTFILE_DIR)/nvim $(NVIM_DIR)
 	ls -l $(NVIM_DIR)
 
@@ -44,3 +53,5 @@ rbenv-init: $(BASH_ENV_PROFILE)
 $(BASH_ENV_PROFILE):
 	touch $@
 
+$(CONF_DIR):
+	mkdir -p $@

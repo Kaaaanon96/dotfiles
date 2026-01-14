@@ -14,3 +14,4 @@ brew "universal-ctags", args: ["HEAD"]
 brew "vim"
 brew "wget"
 brew "luarocks"
+brew "nvim"
