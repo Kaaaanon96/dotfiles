@@ -153,6 +153,7 @@ config.keys = {
   { key = "w", mods = "LEADER", action = act.CloseCurrentPane { confirm = true }, },
   -- workspace
   {
+    -- workspace: select
     key = "s",
     mods = "LEADER",
     -- action = act.ShowLauncherArgs({ flags = "WORKSPACES", title = "Select workspace" }) 
@@ -181,6 +182,7 @@ config.keys = {
     end)
   },
   {
+    -- workspace: create
     key = "S",
     mods = "LEADER|SHIFT",
     action = act.PromptInputLine({
@@ -193,6 +195,7 @@ config.keys = {
     })
   },
   {
+    -- workspace: rename
     key = "r",
     mods = "LEADER",
     action = act.PromptInputLine({
@@ -222,11 +225,23 @@ config.mouse_bindings = {
     action = act.OpenLinkAtMouseCursor,
   },
 }
-config.key_tables = {
-  search_mode = {
-    { key = "Enter", mods = "NONE", action = act.CopyMode("NextMatch") },
-    { key = "Enter", mods = "SHIFT",  action = act.CopyMode("PriorMatch") },
-  }
-}
+-- 一部のみ設定すると設定しないバインド効かなくなりそう
+-- config.key_tables = {
+--   search_mode = {
+--     { key = "Enter", mods = "NONE", action = act.CopyMode("NextMatch") },
+--     { key = "Enter", mods = "SHIFT",  action = act.CopyMode("PriorMatch") },
+--   }
+-- }
+
+--------------------------
+-- local workspace settings
+--------------------------
+
+-- local success, err = pcall(require, 'local.workspace')
+-- 
+-- if not success then
+--   wezterm.log_info("Local workspace config not loaded: " .. tostring(err))
+-- end
+
 
 return config

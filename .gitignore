@@ -11,5 +11,8 @@
 
 NOTE.md
 
+/wezterm/local/*
+!/wezterm/local/.keep
+
 /bg_img/*
 !/bg_img/.keep
