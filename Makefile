@@ -12,6 +12,7 @@ BASH_ENV_PROFILE:=$(BASH_CONF_DIR)/env_profile.bash
 CONF_DIR:=~/.config
 NVIM_DIR:=$(CONF_DIR)/nvim
 WEZ_DIR:=$(CONF_DIR)/wezterm
+GHOSTTY_DIR:=$(CONF_DIR)/ghostty
 
 BG_IMG_DIR:=$(DOTFILE_DIR)/bg_img
 
@@ -21,6 +22,10 @@ msg:
 wez-init: $(CONF_DIR) fetch-term-bg
 	ln -s $(DOTFILE_DIR)/wezterm $(WEZ_DIR)
 	ls -l $(WEZ_DIR)
+
+ghostty-init: $(CONF_DIR) fetch-term-bg
+	ln -s $(DOTFILE_DIR)/ghostty $(GHOSTTY_DIR)
+	ls -l $(GHOSTTY_DIR)
 
 fetch-term-bg:
 	cd $(BG_IMG_DIR) && curl -O "https://raw.githubusercontent.com/LazoVelko/Pokemon-Terminal/master/pokemonterminal/Images/Generation%20I%20-%20Kanto/092.jpg"
